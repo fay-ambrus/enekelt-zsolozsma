@@ -1,18 +1,14 @@
-This is LuaHBTeX, Version 1.22.0 (MiKTeX 25.4) (format=lualatex 2025.12.29)  29 DEC 2025 22:34
+This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)  (format=lualatex 2025.5.13)  21 JAN 2026 21:19
  restricted system commands enabled.
-**c:/Users/ambru/enekelt-zsolozsma/main
-(c:/Users/ambru/enekelt-zsolozsma/main.tex
-LaTeX2e <2025-11-01>
-L3 programming layer <2025-12-24>
+**c:/Users/efayamb/enekelt-zsolozsma/main
+(c:/Users/efayamb/enekelt-zsolozsma/main.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-04-14>
 Lua module: luaotfload 2024-12-03 v3.29 Lua based OpenType font support
 Lua module: lualibs 2023-07-13 v2.76 ConTeXt Lua standard libraries.
-Lua module: lualibs-extended 2023-07-13 v2.76 ConTeXt Lua libraries -- extended 
-collection.
-luaotfload | conf : Root cache directory is "C:/Users/ambru/AppData/Local/MiKTeX
-/luatex-cache/generic/names".
-luaotfload | init : Loading fontloader "fontloader-2023-12-28.lua" from kpse-res
-olved path "D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/luatex/luaotfload/f
-ontloader-2023-12-28.lua".
+Lua module: lualibs-extended 2023-07-13 v2.76 ConTeXt Lua libraries -- extended collection.
+luaotfload | conf : Root cache directory is "C:/TinyTeX/texmf-var/luatex-cache/generic/names".
+luaotfload | init : Loading fontloader "fontloader-2023-12-28.lua" from kpse-resolved path "c:/TinyTeX/texmf-dist/tex/luatex/luaotfload/fontloader-2023-12-28.lua".
 Lua-only attribute luaotfload@noligature = 1
 luaotfload | init : Context OpenType loader version 3.134
 Inserting `luaotfload.node_processor' in `pre_linebreak_filter'.
@@ -20,8 +16,7 @@ Inserting `luaotfload.node_processor' in `hpack_filter'.
 Inserting `luaotfload.glyph_stream' in `glyph_stream_provider'.
 Inserting `luaotfload.define_font' in `define_font'.
 Lua-only attribute luaotfload_color_attribute = 2
-luaotfload | conf : Root cache directory is "C:/Users/ambru/AppData/Local/MiKTeX
-/luatex-cache/generic/names".
+luaotfload | conf : Root cache directory is "C:/TinyTeX/texmf-var/luatex-cache/generic/names".
 Inserting `luaotfload.harf.strip_prefix' in `find_opentype_file'.
 Inserting `luaotfload.harf.strip_prefix' in `find_truetype_file'.
 Removing  `luaotfload.glyph_stream' from `glyph_stream_provider'.
@@ -39,82 +34,62 @@ Inserting `luaotfload.aux.fixup_fontdata' in `luaotfload.patch_font_unsafe'.
 Inserting `luaotfload.aux.set_capheight' in `luaotfload.patch_font'.
 Inserting `luaotfload.aux.set_xheight' in `luaotfload.patch_font'.
 Inserting `luaotfload.rewrite_fontname' in `luaotfload.patch_font'.
-Inserting `tracingstacklevels' in `input_level_string'. (D:/Users/ambru/AppData
-/Local/Programs/MiKTeX/tex/latex/base/article.cls
-Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
-(D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/latex/base/size10.clo
-File: size10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
-luaotfload | db : Font names database loaded from C:/Users/ambru/AppData/Local/M
-iKTeX/luatex-cache/generic/names/luaotfload-names.luc.gz)
-\c@part=\count273
-\c@section=\count274
-\c@subsection=\count275
-\c@subsubsection=\count276
-\c@paragraph=\count277
-\c@subparagraph=\count278
-\c@figure=\count279
-\c@table=\count280
+Inserting `tracingstacklevels' in `input_level_string'. (c:/TinyTeX/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(c:/TinyTeX/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2024/06/29 v1.4n Standard LaTeX file (size option)
+luaotfload | db : Font names database loaded from C:/TinyTeX/texmf-var/luatex-cache/generic/names/luaotfload-names.luc.gz)
+\c@part=\count270
+\c@section=\count271
+\c@subsection=\count272
+\c@subsubsection=\count273
+\c@paragraph=\count274
+\c@subparagraph=\count275
+\c@figure=\count276
+\c@table=\count277
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
-\bibindent=\dimen147
-)
-(./gregosheet.sty
+\bibindent=\dimen145
+) (./gregosheet.sty
 Package: gregosheet 2025/01/01 Custom sheet music
-
-(D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/latex/fontspec/fontspec.sty
-(D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/latex/l3packages/xparse/xpars
-e.sty
-(D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/latex/l3kernel/expl3.sty
-Package: expl3 2025-12-24 L3 programming layer (loader) 
-
-(D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend-lua
-tex.def
-File: l3backend-luatex.def 2025-10-09 L3 backend support: PDF output (LuaTeX)
-\l__color_backend_stack_int=\count281
+ (c:/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.sty (c:/TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xparse.sty (c:/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2025-04-14 L3 programming layer (loader) 
+ (c:/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-luatex.def
+File: l3backend-luatex.def 2025-04-14 L3 backend support: PDF output (LuaTeX)
+\l__color_backend_stack_int=\count278
 Inserting `l3color' in `luaotfload.parse_color'.))
-Package: xparse 2025-10-09 L3 Experimental document command parser
+Package: xparse 2024-08-16 L3 Experimental document command parser
 )
-Package: fontspec 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX
-Lua module: fontspec 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX
-(D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/latex/fontspec/fontspec-luate
-x.sty
-Package: fontspec-luatex 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaT
-eX
-\l__fontspec_script_int=\count282
-\l__fontspec_language_int=\count283
-\l__fontspec_strnum_int=\count284
-\l__fontspec_tmp_int=\count285
-\l__fontspec_tmpa_int=\count286
-\l__fontspec_tmpb_int=\count287
-\l__fontspec_tmpc_int=\count288
-\l__fontspec_em_int=\count289
-\l__fontspec_emdef_int=\count290
-\l__fontspec_strong_int=\count291
-\l__fontspec_strongdef_int=\count292
-\l__fontspec_tmpa_dim=\dimen148
-\l__fontspec_tmpb_dim=\dimen149
-\l__fontspec_tmpc_dim=\dimen150
- (D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/latex/base/fontenc.sty
-Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
-) (D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/latex/fontspec/fontspec.cfg
-)))
-(D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/lualatex/luacode/luacode.sty
+Package: fontspec 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTeX
+Lua module: fontspec 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTeX (c:/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec-luatex.sty
+Package: fontspec-luatex 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTeX
+\l__fontspec_script_int=\count279
+\l__fontspec_language_int=\count280
+\l__fontspec_strnum_int=\count281
+\l__fontspec_tmp_int=\count282
+\l__fontspec_tmpa_int=\count283
+\l__fontspec_tmpb_int=\count284
+\l__fontspec_tmpc_int=\count285
+\l__fontspec_em_int=\count286
+\l__fontspec_emdef_int=\count287
+\l__fontspec_strong_int=\count288
+\l__fontspec_strongdef_int=\count289
+\l__fontspec_tmpa_dim=\dimen146
+\l__fontspec_tmpb_dim=\dimen147
+\l__fontspec_tmpc_dim=\dimen148
+ (c:/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+) (c:/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.cfg))) (c:/TinyTeX/texmf-dist/tex/lualatex/luacode/luacode.sty
 Package: luacode 2012/01/23 v1.2a lua-in-tex helpers (mpg)
-
-(D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/generic/iftex/ifluatex.sty
+ (c:/TinyTeX/texmf-dist/tex/generic/iftex/ifluatex.sty
 Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
-
-(D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/generic/iftex/iftex.sty
+ (c:/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
-))
-(D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/luatex/luatexbase/luatexbase.
-sty
+)) (c:/TinyTeX/texmf-dist/tex/luatex/luatexbase/luatexbase.sty
 Package: luatexbase 2015/10/04 v1.3 luatexbase interface to LuaTeX 
-
-(D:/Users/ambru/AppData/Local/Programs/MiKTeX/tex/luatex/ctablestack/ctablestac
-k.sty
+ (c:/TinyTeX/texmf-dist/tex/luatex/ctablestack/ctablestack.sty
 Package: ctablestack 2015/10/01 v1.0 Catcode table stable support
-\@catcodetablestackcnt=\count293
+\@catcodetablestackcnt=\count290
 )
 \CatcodeTableOther=\catcodetable14
 \CatcodeTableExpl=\catcodetable15
@@ -133,10 +108,9 @@ Package fontspec Info:
 (fontspec)             - 'normal' (m/n) with NFSS spec.:
 (fontspec)             <->"[guidohu_.ttf]:mode=node;language=dflt;"
 
-)
-No file main.aux.
-
+) (./main.aux)
 \openout1 = main.aux
+
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
 LaTeX Font Info:    ... okay on input line 4.
 LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
@@ -211,140 +185,434 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 4.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 4.
-! Undefined control sequence.
-\melody code #1-> \ExplSyntaxOn \tl 
-                                    _set:Nn \g _gregosheet_melody_tl {#1} \E...
-l.7   \melody{q w e e r t y}
-                            
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.7   \melody{q w e e r t y}
-                            
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+PARSE: <
+PARSE: char=< token.type=symbol
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 7
+PARSE: char=7 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 7
+PARSE: char=7 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 7
+PARSE: char=7 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 7
+PARSE: char=7 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 7
+PARSE: char=7 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 7
+PARSE: char=7 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 6
+PARSE: char=6 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 5
+PARSE: char=5 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: :
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: �
+PARSE: char=� token.type=note
+PARSE: �
+PARSE: char=� token.type=note
+PARSE: 7
+PARSE: char=7 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 7
+PARSE: char=7 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 7
+PARSE: char=7 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 7
+PARSE: char=7 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 4
+PARSE: char=4 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 5
+PARSE: char=5 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 4
+PARSE: char=4 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 3
+PARSE: char=3 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: ,
+PARSE: char=, token.type=symbol
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 5
+PARSE: char=5 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 5
+PARSE: char=5 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 6
+PARSE: char=6 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 7
+PARSE: char=7 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 6
+PARSE: char=6 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 5
+PARSE: char=5 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 4
+PARSE: char=4 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 5
+PARSE: char=5 token.type=note
+PARSE: z
+PARSE: char=z token.type=note
+PARSE: Z
+PARSE: char=Z token.type=note
+PARSE: 5
+PARSE: char=5 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: :
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 5
+PARSE: char=5 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 5
+PARSE: char=5 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 4
+PARSE: char=4 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 3
+PARSE: char=3 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 4
+PARSE: char=4 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 5
+PARSE: char=5 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 4
+PARSE: char=4 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: 4
+PARSE: char=4 token.type=note
+PARSE: -
+PARSE: char=- token.type=delimiter
+PARSE: .
+RENDER: token.value=< token.type=symbol
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=7 token.type=note
+NOTE: token.value=7 token.type=note lyric=Im
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=7 token.type=note
+NOTE: token.value=7 token.type=note lyric=már
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=7 token.type=note
+NOTE: token.value=7 token.type=note lyric=a
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=7 token.type=note
+NOTE: token.value=7 token.type=note lyric=nap
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=7 token.type=note
+NOTE: token.value=7 token.type=note lyric=le
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=7 token.type=note
+NOTE: token.value=7 token.type=note lyric=ál
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=6 token.type=note
+NOTE: token.value=6 token.type=note lyric=do
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=5 token.type=note
+NOTE: token.value=5 token.type=note lyric=zott,
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=¨7 token.type=note
+NOTE: token.value=¨7 token.type=note lyric=Te
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=7 token.type=note
+NOTE: token.value=7 token.type=note lyric=rem
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=7 token.type=note
+NOTE: token.value=7 token.type=note lyric=tőnk,
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=7 token.type=note
+NOTE: token.value=7 token.type=note lyric=ké
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=4 token.type=note
+NOTE: token.value=4 token.type=note lyric=rünk
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=5 token.type=note
+NOTE: token.value=5 token.type=note lyric=té
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=4 token.type=note
+NOTE: token.value=4 token.type=note lyric=ge
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=3 token.type=note
+NOTE: token.value=3 token.type=note lyric=det,
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=, token.type=symbol
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=5 token.type=note
+NOTE: token.value=5 token.type=note lyric=légy
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=5 token.type=note
+NOTE: token.value=5 token.type=note lyric=ke
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=6 token.type=note
+NOTE: token.value=6 token.type=note lyric=gyes
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=7 token.type=note
+NOTE: token.value=7 token.type=note lyric=és
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=6 token.type=note
+NOTE: token.value=6 token.type=note lyric=ma
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=5 token.type=note
+NOTE: token.value=5 token.type=note lyric=radj
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=4 token.type=note
+NOTE: token.value=4 token.type=note lyric=ve
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=5zZ5 token.type=note
+NOTE: token.value=5zZ5 token.type=note lyric=lünk,
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=5 token.type=note
+NOTE: token.value=5 token.type=note lyric=ő
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=5 token.type=note
+NOTE: token.value=5 token.type=note lyric=riz
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=4 token.type=note
+NOTE: token.value=4 token.type=note lyric=zed,
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=3 token.type=note
+NOTE: token.value=3 token.type=note lyric=óv
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=4 token.type=note
+NOTE: token.value=4 token.type=note lyric=jad
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=5 token.type=note
+NOTE: token.value=5 token.type=note lyric=né
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=4 token.type=note
+NOTE: token.value=4 token.type=note lyric=pe
+RENDER: token.value=- token.type=delimiter
+RENDER: token.value=4 token.type=note
+NOTE: token.value=4 token.type=note lyric=det!
+RENDER: token.value=- token.type=delimiter
+luaotfload | cache : Lookup cache loaded from C:/TinyTeX/texmf-var/luatex-cache/generic/names/luaotfload-lookup-cache.luc.
 
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 7.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 7.
-! Undefined control sequence.
-\melody code #1-> \ExplSyntaxOn \tl _set:Nn \g 
-                                               _gregosheet_melody_tl {#1} \E...
-l.7   \melody{q w e e r t y}
-                            
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-\lyrics code #1-> \ExplSyntaxOn \tl 
-                                    _set:Nn \g _gregosheet_lyrics_tl {#1} \E...
-l.8   \lyrics{A- maz- ing grace}
-                                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-\lyrics code #1-> \ExplSyntaxOn \tl _set:Nn \g 
-                                               _gregosheet_lyrics_tl {#1} \E...
-l.8   \lyrics{A- maz- ing grace}
-                                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-\environment gregosheet end aux  ...apestring {\g 
-                                                  _gregosheet_melody_tl}", "...
-l.9 \end{gregosheet}
-                    
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-\environment gregosheet end aux  ...apestring {\g 
-                                                  _gregosheet_lyrics_tl}" ) } 
-l.9 \end{gregosheet}
-                    
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-[\directlua]:1: attempt to index a nil value (global 'gregosheet')
-stack traceback:
-	[\directlua]:1: in main chunk.
-\environment gregosheet end aux  ...yrics_tl}" ) }
-                                                   
-l.9 \end{gregosheet}
-                    
-The lua interpreter ran into a problem, so the
-remainder of this lua chunk will be ignored.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.9 \end{gregosheet}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
+Package fontspec Info: 
+(fontspec)             Could not resolve font "Cambria/BI" (it probably
+(fontspec)             doesn't exist).
 
 
-Overfull \hbox (31.35864pt too wide) in paragraph at lines 7--10
-[]$[][]\OML/cmm/m/it/10 et \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 Nn[]regosheet[]elo
-dy[]l[][]et \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 Nn[]regosheet[]yrics[]l[]$ 
+Package fontspec Info: 
+(fontspec)             Could not resolve font "Cambria/B" (it probably doesn't
+(fontspec)             exist).
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'Cambria(0)' created for font 'Cambria'
+(fontspec)             with options [].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->"name:Cambria:mode=node;script=latn;language=dflt;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.:
+(fontspec)             <->"name:Cambria:mode=node;script=latn;language=dflt;+smcp;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->"name:Cambria/I:mode=node;script=latn;language=dflt;"
+(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.:
+(fontspec)             <->"name:Cambria/I:mode=node;script=latn;language=dflt;+smcp;"
+
+
+Overfull \hbox (278.84035pt too wide) in paragraph at lines 1--10
+[] 
  []
+
+
 
 [1
 
-{C:/Users/ambru/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-(./main.aux)
+{c:/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./main.aux)
  ***********
-LaTeX2e <2025-11-01>
-L3 programming layer <2025-12-24>
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-04-14>
  ***********
 )
 
 Here is how much of LuaTeX's memory you used:
- 3042 strings out of 476081
- 100000,552014 words of node,token memory allocated
+ 3049 strings out of 471925
+ 100000,662416 words of node,token memory allocated
  406 words of node memory still in use:
-   3 hlist, 1 vlist, 1 rule, 2 glue, 3 kern, 1 glyph, 4 attribute, 48 glue_spec,
- 4 attribute_list, 1 write nodes
-   avail lists: 2:32,3:72,4:1,5:46,6:2,7:186,8:65,9:40
- 25513 multiletter control sequences out of 65536+600000
- 30 fonts using 1811495 bytes
- 88i,5n,104p,259b,212s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<d:/users/ambru/appdata/local/programs/miktex/fonts/opentype/public/lm/lmroman10
--regular.otf><D:/Users/ambru/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
-sfonts/cm/cmmi10.pfb><D:/Users/ambru/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmmi7.pfb><D:/Users/ambru/AppData/Local/Programs/MiKTeX/fonts/
-type1/public/amsfonts/cm/cmr10.pfb><D:/Users/ambru/AppData/Local/Programs/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on main.pdf (1 page, 40287 bytes).
+   3 hlist, 1 vlist, 1 rule, 2 glue, 3 kern, 1 glyph, 4 attribute, 48 glue_spec, 4 attribute_list, 1 write nodes
+   avail lists: 1:1,2:628,3:4,4:1,5:168,6:2,7:848,9:426
+ 29665 multiletter control sequences out of 65536+600000
+ 27 fonts using 8365351 bytes
+ 88i,5n,104p,261b,331s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/TinyTeX/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf><c:/Windows/Fonts/cambria.ttc><./guidohu_.ttf>
+Output written on main.pdf (1 page, 38273 bytes).
 
 PDF statistics: 29 PDF objects out of 1000 (max. 8388607)
+ 16 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 131072)
  1 words of extra memory for PDF output out of 10000 (max. 100000000)
 
