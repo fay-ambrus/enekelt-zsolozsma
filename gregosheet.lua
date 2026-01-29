@@ -1,5 +1,11 @@
 gregosheet = gregosheet or {}
 
+local delimiter_s = "¨"
+local delimiter_m = "-"
+local delimiter_l = "_"
+local delimiter_xl = "*"
+
+
 -- Parse string into tokens: notes, delimiters (-), and symbols
 local function parse(str)
   local tokens = {}
@@ -48,10 +54,57 @@ local function split_lyrics(str)
   return syllables
 end
 
+-- Split syllable at first vowel
+local function split_syllable(syllable)
+  local vowels = "[aáeéiíoóöőuúüűAÁEÉIÍOÓÖŐUÚÜŰ]"
+  local pos = syllable:find(vowels) or 1
+
+  local before = syllable:sub(1, utf8.offset(syllable, pos) - 1)
+  local vowel_start = utf8.offset(syllable, pos)
+  local vowel_end = utf8.offset(syllable, pos + 1)
+  local vowel = syllable:sub(vowel_start, vowel_end and vowel_end - 1 or -1)
+  local after = vowel_end and syllable:sub(vowel_end) or ""
+
+  return before, vowel, after
+end
+
+-- Measure text width in points
+local function measure_width(text, fontid)
+  if text == "" then return 0 end
+  local b = tex.hbox("\\font\\tmp=" .. fontid .. " \\tmp " .. text)
+  return b.width / 65536
+end
+
+-- Calculate free space between previous and current lyric
+local function calculate_free_space(prev_pos, prev_after_width, curr_pos, curr_before_width)
+  if not prev_pos then return nil end
+  local prev_right = prev_pos + prev_after_width
+  local curr_left = curr_pos - curr_before_width
+  return curr_left - prev_right
+end
+
 function gregosheet.render(melody_str, lyrics_str)
   local melody = parse(melody_str)
   local lyrics = split_lyrics(lyrics_str)
   local lyric_index = 1
+  local curr_pos = 0
+  local prev_pos = nil
+  local prev_after_width = nil
+
+  -- Get font IDs
+  tex.sprint("\\fontsize{20}{24}\\selectfont\\MusicFont")
+  local music_fontid = font.current()
+  tex.sprint("\\fontsize{10}{12}\\selectfont\\fontspec{Cambria}")
+  local lyric_fontid = font.current()
+
+  local delimiter_s_width = measure_width(delimiter_s, music_fontid)
+  local delimiter_m_width = measure_width(delimiter_m, music_fontid)
+  local delimiter_l_width = measure_width(delimiter_l, music_fontid)
+  local delimiter_xl_width = measure_width(delimiter_xl, music_fontid)
+  texio.write_nl("DEBUG: " .. delimiter_s .. " delimiter width=" .. delimiter_s_width .. "pt")
+  texio.write_nl("DEBUG: " .. delimiter_m .. " delimiter width=" .. delimiter_m_width .. "pt")
+  texio.write_nl("DEBUG: " .. delimiter_l .. " delimiter width=" .. delimiter_l_width .. "pt")
+  texio.write_nl("DEBUG: " .. delimiter_xl .. " delimiter width=" .. delimiter_xl_width .. "pt")
 
   tex.sprint("\\noindent")
   tex.sprint("\\hbox{")
@@ -61,18 +114,36 @@ function gregosheet.render(melody_str, lyrics_str)
       local lyric = lyrics[lyric_index] or ""
       lyric_index = lyric_index + 1
 
+      local before, vowel, after = split_syllable(lyric)
+      local before_width = measure_width(before, lyric_fontid)
+      local after_width = measure_width(after, lyric_fontid)
+
+      local free_space = calculate_free_space(prev_pos, prev_after_width, curr_pos, before_width)
+      local free_str = free_space and string.format("%.2f", free_space) or "N/A"
+      texio.write_nl("DEBUG: lyric=" .. lyric .. " free_space=" .. free_str .. "pt")
+
+      prev_pos = curr_pos
+      prev_after_width = after_width
+      curr_pos = curr_pos + measure_width(token.value, music_fontid)
+
       tex.sprint("\\vtop{")
       tex.sprint("\\hbox{\\fontsize{20}{24}\\selectfont\\MusicFont " .. token.value .. "}")
       tex.sprint("\\kern2pt")
-      tex.sprint("\\hbox to 0pt{\\hss\\fontsize{10}{12}\\selectfont\\fontspec{Cambria}" .. lyric .. "\\hss}")
+      tex.sprint("\\hbox{\\fontsize{10}{12}\\selectfont\\fontspec{Cambria}\\makebox[0pt][r]{" .. before .. "}" .. vowel .. "\\makebox[0pt][l]{" .. after .. "}}")
       tex.sprint("}")
+
+
     elseif token.type == "delimiter" then
+      curr_pos = curr_pos + measure_width("---", music_fontid)
       tex.sprint("\\vtop{")
       tex.sprint("\\hbox{\\fontsize{20}{24}\\selectfont\\MusicFont ---}")
       tex.sprint("\\kern2pt")
       tex.sprint("\\hbox to 0pt{\\hss}")
       tex.sprint("}")
+
+
     elseif token.type == "symbol" then
+      curr_pos = curr_pos + measure_width(token.value, music_fontid)
       tex.sprint("\\vtop{")
       tex.sprint("\\hbox{\\fontsize{20}{24}\\selectfont\\MusicFont " .. token.value .. "}")
       tex.sprint("\\kern2pt")
