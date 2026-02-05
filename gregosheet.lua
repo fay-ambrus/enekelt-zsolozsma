@@ -140,8 +140,15 @@ function gregosheet.render(clef, melody, lyrics)
   tex.sprint("\\hbox{")
   tex.sprint("\\fontsize{20}{24}\\selectfont\\MusicFont")
   tex.sprint(clef.value)
+  texio.write_nl("\n=== MELODY ===")
+  texio.write_nl(string.format("Clef at 0, width=%d", clef.width_sp))
+  local melody_pos = clef.width_sp
   for i, token in ipairs(melody) do
+    if token.type == "note" then
+      texio.write_nl(string.format("Note %d at %d", i, melody_pos))
+    end
     tex.sprint(token.value)
+    melody_pos = melody_pos + token.width_sp
   end
   tex.sprint("}")
 
@@ -150,9 +157,11 @@ function gregosheet.render(clef, melody, lyrics)
   -- Render lyrics line
   tex.sprint("\\hbox{")
   tex.sprint("\\fontsize{10}{12}\\selectfont\\fontspec{Cambria}")
+  texio.write_nl("\n=== LYRICS ===")
   local current_pos_sp = 0
   for i, lyric in ipairs(lyrics) do
     if lyric.start_sp then
+      texio.write_nl(string.format("Lyric %d '%s' at %.0f", i, lyric.text, lyric.start_sp))
       local kern_sp = lyric.start_sp - current_pos_sp
       if kern_sp > 0 then
         tex.sprint("\\kern" .. (kern_sp) .. "sp")
