@@ -70,9 +70,24 @@ end
 
 -- Measure text width in points
 local function measure_width(text, fontid)
-  if text == "" then return 0 end
-  local b = tex.hbox("\\font\\tmp=" .. fontid .. " \\tmp " .. text)
-  return b.width / 65536
+  if not text or text == "" then return 0 end
+
+  local head, last
+
+  for _, c in utf8.codes(text) do
+    local g = node.new("glyph")
+    g.font = fontid
+    g.char = c
+    if not head then
+      head = g
+    else
+      last.next = g
+      g.prev = last
+    end
+    last = g
+  end
+
+  return node.hpack(head).width
 end
 
 -- Calculate free space between previous and current lyric
@@ -92,10 +107,8 @@ function gregosheet.render(melody_str, lyrics_str)
   local prev_after_width = nil
 
   -- Get font IDs
-  tex.sprint("\\fontsize{20}{24}\\selectfont\\MusicFont")
-  local music_fontid = font.current()
-  tex.sprint("\\fontsize{10}{12}\\selectfont\\fontspec{Cambria}")
-  local lyric_fontid = font.current()
+  local music_fontid = gregosheet.music_fontid
+  local lyric_fontid = gregosheet.lyrics_fontid
 
   local delimiter_s_width = measure_width(delimiter_s, music_fontid)
   local delimiter_m_width = measure_width(delimiter_m, music_fontid)
