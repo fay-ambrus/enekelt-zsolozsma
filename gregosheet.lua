@@ -12,7 +12,8 @@ local tolerable_syllabel_gap_sp = 73000
 local notes = "[ðñ0123456789öüó%^qwertzuiopõúÝÞQWERTZUIOPÕÚÔ×asdfghjkléáûØÙASDFGHJKLÉÁÛ`íyxcvbnmzZ÷øÍYXCVBNŸ¡¢£¥¦©ª«¬àâãäåæçèêëìîï%]¨]"
 local recited_notes = "[%[Ÿ¡¢£¥¦©ª«¬]"
 local delimiters = "[%-_*]"
-local symbols = "[¼ÿ®−§'\"+!%%/=()ÖÜÓ%s,M?>#&@{}<¿À:.]"
+local symbols = "[¼ÿ®−§'\"+!%%/=()ÖÜÓ%sM>#&@{}<¿À]"
+local barlines = "[,.?:;]"
 
 -- Measure text width in scaled points
 local function measure_width_sp(text, fontid)
@@ -65,6 +66,13 @@ local function parse_melody(str)
       end
       table.insert(tokens, {type = "symbol", value = char, width_sp = measure_width_sp(char, music_fontid)})
       last_type = "symbol"
+    elseif char:match(barlines) then
+      if note_group ~= "" then
+        table.insert(tokens, {type = "note", value = note_group, width_sp = measure_width_sp(note_group, music_fontid)})
+        note_group = ""
+      end
+      table.insert(tokens, {type = "barline", value = char, width_sp = measure_width_sp(char, music_fontid)})
+      last_type = "barline"
     end
   end
 
@@ -118,55 +126,40 @@ local function calculate_free_space(prev_pos, prev_after_width, curr_pos, curr_b
   return curr_left - prev_right
 end
 
-function gregosheet.render(clef, melody, lyrics)
-  -- Check if music fits on page
-  local text_width = tex.dimen["textwidth"]
-  local music_width = clef.width_sp
-  for i, token in ipairs(melody) do
-    music_width = music_width + token.width_sp
-  end
+function gregosheet.render(systems)
+  for sys_idx, system in ipairs(systems) do
+    tex.sprint("\\noindent")
 
-  if music_width > text_width then
-    texio.write_nl("WARNING: Music width " .. music_width .. "sp exceeds text width " .. text_width .. "sp by " .. (music_width - text_width) .. "sp")
-  end
+    -- Create music hbox
+    tex.sprint("\\hbox{")
+    tex.sprint("\\fontsize{20}{24}\\selectfont\\MusicFont")
+    tex.sprint(system.clef.value)
 
-  tex.sprint("\\noindent")
-
-  -- Create music hbox
-  tex.sprint("\\hbox{")
-  tex.sprint("\\fontsize{20}{24}\\selectfont\\MusicFont")
-  tex.sprint(clef.value)
-  texio.write_nl("\n=== MELODY ===")
-  texio.write_nl(string.format("Clef at 0, width=%d", clef.width_sp))
-
-  local melody_pos = clef.width_sp
-  for i, token in ipairs(melody) do
-    if token.type == "note" then
-      texio.write_nl(string.format("Note %d at %d", i, melody_pos))
+    for i, token in ipairs(system.melody) do
+      tex.sprint(token.value)
     end
-    tex.sprint(token.value)
-    melody_pos = melody_pos + token.width_sp
-  end
-  tex.sprint("}")
+    tex.sprint("}")
 
-  -- Create lyrics line with absolute positioning
-  tex.sprint("\\vskip2pt")
-  tex.sprint("\\hbox to 0pt{")
-  tex.sprint("\\fontsize{10}{12}\\selectfont\\LyricFont")
-  texio.write_nl("\n=== LYRICS ===")
+    -- Create lyrics line with absolute positioning
+    tex.sprint("\\vskip2pt")
+    tex.sprint("\\hbox to 0pt{")
+    tex.sprint("\\fontsize{10}{12}\\selectfont\\LyricFont")
 
-  for i, lyric in ipairs(lyrics) do
-    if lyric.start_sp then
-      texio.write_nl(string.format("Lyric %d '%s' at %.0f", i, lyric.text, lyric.start_sp))
-      -- Position each lyric absolutely using \hbox to 0pt and \hskip
-      tex.sprint("\\hbox to 0pt{")
-      tex.sprint("\\hskip" .. lyric.start_sp .. "sp")
-      tex.sprint(lyric.text)
-      tex.sprint("\\hss}")
+    for i, lyric in ipairs(system.lyrics) do
+      if lyric.start_sp then
+        tex.sprint("\\hbox to 0pt{")
+        tex.sprint("\\hskip" .. lyric.start_sp .. "sp")
+        tex.sprint(-2, lyric.text)
+        tex.sprint("\\hss}")
+      end
+    end
+
+    tex.sprint("\\hss}")
+
+    if sys_idx < #systems then
+      tex.sprint("\\vskip10pt")
     end
   end
-
-  tex.sprint("\\hss}")
 end
 
 -- Calculate the starting position for a lyric under a note
@@ -181,7 +174,7 @@ local function calculate_lyric_starting_position(lyric, token, music_pos_sp)
 end
 
 -- Get minimal delimiter combination wider than distance_sp
-local function get_delimiter_for_distance(distance_sp)
+local function get_minimal_delimiter_over_distance(distance_sp)
   local music_fontid = gregosheet.music_fontid
   local w_s = measure_width_sp(delimiter_s, music_fontid)
   local w_m = measure_width_sp(delimiter_m, music_fontid)
@@ -219,6 +212,26 @@ local function get_delimiter_for_distance(distance_sp)
   return string.rep(delimiter_l, n_l + 1)
 end
 
+-- Get maximal delimiter combination smaller than distance_sp
+local function get_maximal_delimiter_under_distance(distance_sp)
+  local music_fontid = gregosheet.music_fontid
+  local w_s = measure_width_sp(delimiter_s, music_fontid)
+  local w_m = measure_width_sp(delimiter_m, music_fontid)
+  local w_l = measure_width_sp(delimiter_l, music_fontid)
+
+  if distance_sp <= 0 then
+    return ""
+  end
+
+  local n_l = math.floor(distance_sp / w_l)
+  local remaining = distance_sp - n_l * w_l
+  local n_m = math.floor(remaining / w_m)
+  remaining = remaining - n_m * w_m
+  local n_s = math.floor(remaining / w_s)
+
+  return string.rep(delimiter_l, n_l) .. string.rep(delimiter_m, n_m) .. string.rep(delimiter_s, n_s)
+end
+
 -- Extract clef from melody tokens
 local function extract_clef(melody)
   local music_fontid = gregosheet.music_fontid
@@ -240,9 +253,9 @@ local function extract_clef(melody)
   }
 end
 
-local function find_last_delimiter_index(melody, current_index)
+local function find_last_token_with_type(melody, current_index, token_type)
   for j = current_index - 1, 1, -1 do
-    if melody[j].type == "delimiter" then
+    if melody[j].type == token_type then
       return j
     end
   end
@@ -250,7 +263,7 @@ local function find_last_delimiter_index(melody, current_index)
 end
 
 local function get_or_insert_last_delimiter(melody, current_index)
-  local last_delimiter_index = find_last_delimiter_index(melody, current_index)
+  local last_delimiter_index = find_last_token_with_type(melody, current_index, "delimiter")
 
   if not last_delimiter_index then
     -- Insert empty delimiter before current note
@@ -261,55 +274,91 @@ local function get_or_insert_last_delimiter(melody, current_index)
   return last_delimiter_index, melody[last_delimiter_index]
 end
 
+local function is_lyric_overful(lyric)
+  return lyric.start_sp + lyric.width_sp > tex.dimen["textwidth"]
+end
+
 function spacing_compute(melody, lyrics)
   local space_width_sp = measure_width_sp(" ", gregosheet.lyrics_fontid)
   local hyphen_width_sp = measure_width_sp("-", gregosheet.lyrics_fontid)
+  local page_width_sp = tex.dimen["textwidth"]
+
+  texio.write_nl("\n=== SPACING_COMPUTE START ===")
+  texio.write_nl(string.format("page_width_sp=%.1f", page_width_sp))
 
   local clef = extract_clef(melody)
 
+  local systems = {}
+  local system = {clef = clef, melody = {}, lyrics = {}}
+  local last_token = nil
   local music_pos_sp = clef.width_sp
   local lyric_index = 1
   local i = 1
 
   while i <= #melody do
     local token = melody[i]
-    if token.type == "note" then
-      local lyric = lyrics[lyric_index]
-      if lyric then
-        lyric.start_sp = calculate_lyric_starting_position(lyric, token, music_pos_sp)
+    local last_token = melody[i - 1]
+    local lyric_overful = false
 
-        -- Check if lyrics overlap or have gap
-        local previous_lyric = lyrics[lyric_index - 1]
-        if previous_lyric then
-          -- Calculate gap between previous lyric end and current lyric start
-          local prev_end_sp = previous_lyric.start_sp + previous_lyric.width_sp
-          if previous_lyric.word_end then
-            prev_end_sp = prev_end_sp + space_width_sp
-          end
-          local gap_sp = lyric.start_sp - prev_end_sp
+    texio.write_nl(string.format("[i=%d] %s, pos=%.1f, lyric_idx=%d", i, token.type, music_pos_sp, lyric_index))
 
-          if gap_sp < 0 then
-            -- Lyrics overlap, need to add delimiter width
-            local needed_extra_space_sp = -gap_sp
+    if token.type == "barline" then
+      -- There are fixed delimiters around barlines
+      if last_token and last_token.type == "delimiter" then
+        last_token.value = "-"
+        music_pos_sp = music_pos_sp - last_token.width_sp + hyphen_width_sp
+        last_token.width_sp = hyphen_width_sp
+      end
+      local next_token = melody[i + 1]
+      if next_token and next_token.type == "delimiter" then
+        next_token.value = "--"
+        next_token.width_sp = hyphen_width_sp
+      end
+    end
 
-            -- Find the last delimiter token before current note
-            local last_delimiter_index, last_delimiter = get_or_insert_last_delimiter(melody, i)
+    local lyric = lyrics[lyric_index]
+    if lyric and (token.type == "note" or (token.type == "barline" and lyric.text == "*")) then
+      lyric.start_sp = calculate_lyric_starting_position(lyric, token, music_pos_sp)
+      texio.write_nl(string.format("  Lyric '%s' @ %.1f", lyric.text, lyric.start_sp))
 
-            local needed_delimiter_width_sp = last_delimiter.width_sp + needed_extra_space_sp
-
-            -- Get appropriate delimiter combination for the needed width
-            local last_delimiter_old_width_sp = last_delimiter.width_sp
-            last_delimiter.value = get_delimiter_for_distance(needed_delimiter_width_sp)
-            last_delimiter.width_sp = measure_width_sp(last_delimiter.value, gregosheet.music_fontid)
-
-            -- Recalculate music position and lyric position
-            music_pos_sp = music_pos_sp + (last_delimiter.width_sp - last_delimiter_old_width_sp)
-            lyric.start_sp = calculate_lyric_starting_position(lyric, token, music_pos_sp)
-          end
+      -- Check if lyrics overlap or have gap
+      local previous_lyric = system.lyrics[#system.lyrics]
+      if previous_lyric then
+        -- Calculate gap between previous lyric end and current lyric start
+        local prev_end_sp = previous_lyric.start_sp + previous_lyric.width_sp
+        if previous_lyric.word_end then
+          prev_end_sp = prev_end_sp + space_width_sp
         end
+        local gap_sp = lyric.start_sp - prev_end_sp
 
-        -- Hyphenation
-        if previous_lyric and not previous_lyric.word_end then
+        if gap_sp < 0 then
+          -- Lyrics overlap, need to add delimiter width
+          local needed_extra_space_sp = -gap_sp
+
+          -- Find the last delimiter token before current note
+          local last_delimiter_index, last_delimiter = get_or_insert_last_delimiter(melody, i)
+
+          local needed_delimiter_width_sp = last_delimiter.width_sp + needed_extra_space_sp
+
+          -- Get appropriate delimiter combination for the needed width
+          local last_delimiter_old_width_sp = last_delimiter.width_sp
+          last_delimiter.value = get_minimal_delimiter_over_distance(needed_delimiter_width_sp)
+          last_delimiter.width_sp = measure_width_sp(last_delimiter.value, gregosheet.music_fontid)
+
+          -- Recalculate music position and lyric position
+          music_pos_sp = music_pos_sp + (last_delimiter.width_sp - last_delimiter_old_width_sp)
+          lyric.start_sp = calculate_lyric_starting_position(lyric, token, music_pos_sp)
+        end
+      end
+
+      lyric_overful = is_lyric_overful(lyric)
+      if lyric_overful then
+        texio.write_nl(string.format("  OVERFUL: lyric end=%.1f > page=%.1f", lyric.start_sp + lyric.width_sp, page_width_sp))
+      end
+
+      -- Hyphenation
+      if previous_lyric and not previous_lyric.word_end then
+        if not lyric_overful then
           gap_sp = lyric.start_sp - (previous_lyric.start_sp + previous_lyric.width_sp)
           if gap_sp > tolerable_syllabel_gap_sp then
             if gap_sp < hyphen_width_sp then
@@ -318,7 +367,7 @@ function spacing_compute(melody, lyrics)
 
               local last_delimiter_old_width_sp = last_delimiter.width_sp
               needed_delimiter_width_sp = last_delimiter.width_sp + hyphen_width_sp - gap_sp
-              last_delimiter.value = get_delimiter_for_distance(needed_delimiter_width_sp)
+              last_delimiter.value = get_minimal_delimiter_over_distance(needed_delimiter_width_sp)
               last_delimiter.width_sp = measure_width_sp(last_delimiter.value, gregosheet.music_fontid)
 
               music_pos_sp = music_pos_sp + (last_delimiter.width_sp - last_delimiter_old_width_sp)
@@ -326,37 +375,115 @@ function spacing_compute(melody, lyrics)
               gap_sp = lyric.start_sp - (previous_lyric.start_sp + previous_lyric.width_sp)
             end
 
-            table.insert(lyrics, lyric_index, {
+            table.insert(system.lyrics, {
               type = "hyphen",
               text = "-",
               width_sp = hyphen_width_sp,
               start_sp = lyric.start_sp - hyphen_width_sp - (gap_sp - hyphen_width_sp) / 2
             })
-            lyric_index = lyric_index + 1
           end
+        else
+          previous_lyric.text = previous_lyric.text .. "-"
+          previous_lyric.width_sp = measure_width_sp(previous_lyric.text, gregosheet.lyrics_fontid)
         end
+      end
 
-        -- If the lyric ends a word, mark it (space added in render or here)
-        if lyric.word_end then
-          lyric.text = lyric.text .. " "
-          lyric.width_sp = lyric.width_sp + space_width_sp
-        end
-
-        lyric_index = lyric_index + 1
+      -- If the lyric ends a word, mark it (space added in render or here)
+      if lyric.word_end then
+        lyric.text = lyric.text .. " "
+        lyric.width_sp = lyric.width_sp + space_width_sp
       end
     end
-    music_pos_sp = music_pos_sp + token.width_sp
-    i = i + 1
+
+    -- System handling
+    if music_pos_sp + token.width_sp > page_width_sp or lyric_overful then
+      texio.write_nl(string.format("  OVERFLOW: pos+token=%.1f > page=%.1f, lyric_overful=%s", music_pos_sp + token.width_sp, page_width_sp, tostring(lyric_overful)))
+      local gap_to_page_end_sp = page_width_sp - music_pos_sp
+      if last_token and last_token.type == "note" then
+        local delimiter_value = get_maximal_delimiter_under_distance(gap_to_page_end_sp)
+        local delimiter_width_sp = measure_width_sp(delimiter_value, gregosheet.music_fontid)
+        if token.type ~= "delimiter" then
+          table.insert(system.melody, {
+            type = "delimiter",
+            value = delimiter_value,
+            width_sp = delimiter_width_sp,
+            start_sp = music_pos_sp
+          })
+        end
+      elseif last_token and last_token.type == "delimiter" then
+        last_token.value = get_maximal_delimiter_under_distance(gap_to_page_end_sp)
+        last_token.width_sp = measure_width_sp(last_token.value, gregosheet.music_fontid)
+      elseif last_token and last_token.type == "barline" then
+        -- The delimiter before the barline should push the barline to the end of the system
+        local last_delimiter_index, last_delimiter = get_or_insert_last_delimiter(melody, i - 1)
+        local last_delimiter_old_width_sp = last_delimiter.width_sp
+        needed_delimiter_width_sp = last_delimiter.width_sp + gap_to_page_end_sp
+        last_delimiter.value = get_maximal_delimiter_under_distance(needed_delimiter_width_sp)
+        last_delimiter.width_sp = measure_width_sp(last_delimiter.value, gregosheet.music_fontid)
+      elseif last_token and last_token.type == "symbol" then
+        -- The delimiter before the symbol should push the symbol to the next system as well
+        local last_delimiter_index, last_delimiter = get_or_insert_last_delimiter(melody, i - 1)
+        local last_delimiter_old_width_sp = last_delimiter.width_sp
+        needed_delimiter_width_sp = last_delimiter.width_sp + gap_to_page_end_sp + token.width_sp
+        last_delimiter.value = get_maximal_delimiter_under_distance(needed_delimiter_width_sp)
+        last_delimiter.width_sp = measure_width_sp(last_delimiter.value, gregosheet.music_fontid)
+      end
+
+      if token.type == "delimiter" then
+        token.value = get_maximal_delimiter_under_distance(gap_to_page_end_sp)
+        token.width_sp = measure_width_sp(token.value, gregosheet.music_fontid)
+        table.insert(system.melody, token)
+      elseif token.type == "barline" then
+        local last_note_index = find_last_token_with_type(system.melody, #system.melody, "note")
+        if last_note_index then
+          local cumulative_width_sp = 0
+          if last_note_index then
+            for j = #system.melody, last_note_index, -1 do
+              cumulative_width_sp = cumulative_width_sp + system.melody[j].width_sp
+              table.remove(system.melody, j)
+            end
+          end
+          local new_delimiter_value = get_maximal_delimiter_under_distance(gap_to_page_end_sp + cumulative_width_sp)
+          local new_delimiter_width_sp = measure_width_sp(new_delimiter_value, gregosheet.music_fontid)
+          table.insert(system.melody, {
+            type = "delimiter",
+            value = new_delimiter_value,
+            width_sp = new_delimiter_width_sp,
+            start_sp = music_pos_sp
+          })
+          i = find_last_token_with_type(melody, i, "note")
+        end
+      end
+
+      -- Start new system
+      texio.write_nl(string.format("  Starting new system %d, resetting music_pos_sp to %.1f", #systems + 1, clef.width_sp))
+      table.insert(systems, system)
+      system = {clef = clef, melody = {}, lyrics = {}}
+      music_pos_sp = clef.width_sp
+    else
+      texio.write_nl("  Fits, adding token")
+      table.insert(system.melody, token)
+      if lyric and lyric.start_sp then
+        texio.write_nl(string.format("  Adding lyric '%s'", lyric.text))
+        table.insert(system.lyrics, lyric)
+        lyric_index = lyric_index + 1
+      end
+      music_pos_sp = music_pos_sp + token.width_sp
+      i = i + 1
+    end
   end
 
-  return clef
+  table.insert(systems, system)
+  texio.write_nl(string.format("\n=== END: %d systems ===", #systems))
+
+  return systems
 end
 
 function gregosheet.main(melody_str, lyrics_str)
   local melody = parse_melody(melody_str)
   local lyrics = parse_lyrics(lyrics_str)
 
-  local clef = spacing_compute(melody, lyrics)
+  local systems = spacing_compute(melody, lyrics)
 
-  gregosheet.render(clef, melody, lyrics)
+  gregosheet.render(systems)
 end
