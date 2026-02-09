@@ -101,13 +101,15 @@ local function recompute_delimiter_width(delimiter, target_width_sp, mode)
     delimiter.value = get_maximal_delimiter_under_distance(target_width_sp)
   end
 
-  delimiter.width_sp =
-    gregosheet.measure_width_sp(delimiter.value, gregosheet.music_fontid)
+  delimiter.width_sp = gregosheet.measure_width_sp(delimiter.value, gregosheet.music_fontid)
 end
 
 
-local function find_last_token_before_note(system, token_type)
-  for j = #system.melody, 1, -1 do
+local function find_last_token_before_note(system, token_type, start_idx)
+  if not start_idx then
+    start_idx = #system.melody
+  end
+  for j = start_idx, 1, -1 do
     if system.melody[j].type == token_type then
       return j
     elseif system.melody[j].type == "note" then
@@ -117,8 +119,11 @@ local function find_last_token_before_note(system, token_type)
   return nil
 end
 
-local function find_or_insert_delimiter(system)
-  local last_delimiter_idx = find_last_token_before_note(system, "delimiter")
+local function find_or_insert_delimiter(system, note_idx)
+  if not note_idx then
+    note_idx = #system.melody
+  end
+  local last_delimiter_idx = find_last_token_before_note(system, "delimiter", note_idx)
   if not last_delimiter_idx then
     last_delimiter_idx = #system.melody
     local previous_token = system.melody[#system.melody - 1]
@@ -189,15 +194,16 @@ function gregosheet.spacing_compute(melody, lyrics)
     local lyric_overfull = false
 
 
+    -- Barlines have default delimiters around them
     if token.type == "barline" then
       if previous_token and previous_token.type == "delimiter" then
         previous_token.value = "-"
-        previous_token.width_sp = hyphen_width_sp
+        previous_token.width_sp = gregosheet.measure_width_sp(previous_token.value, gregosheet.music_fontid)
       end
       local next_token = melody[melody_idx + 1]
       if next_token and next_token.type == "delimiter" then
         next_token.value = "--"
-        next_token.width_sp = hyphen_width_sp * 2
+        next_token.width_sp = gregosheet.measure_width_sp(next_token.value, gregosheet.music_fontid)
       end
     end
 
@@ -275,7 +281,17 @@ function gregosheet.spacing_compute(melody, lyrics)
       -- Handle different types of previous tokens
       if token.type == "delimiter" then
         -- More spacing is needed in the last delimiter
+        local old_width = token.width_sp
         recompute_delimiter_width(token, gap_to_page_end_sp, "max")
+        texio.write_nl(string.format("Recomputing delimiter width at page end: old_sp=%.0f, target_sp=%.0f new_sp=%.0f", old_width, gap_to_page_end_sp, token.width_sp))
+      elseif token.type == "barline" then
+        -- Push the last note to the new system
+        local last_note_idx = find_last_token_before_note(system, "note")
+        local delimiter_idx = find_or_insert_delimiter(system, last_note_idx)
+        local delimiter = system.melody[delimiter_idx]
+        local needed_delimiter_width_sp = page_width_sp - delimiter.start_sp
+        recompute_delimiter_width(delimiter, needed_delimiter_width_sp, "max")
+        melody_idx, lyric_idx = rollback_computations_after(system, delimiter_idx)
       else
         -- There is need for a new finishing delimiter
         table.insert(system.melody, {
@@ -284,9 +300,10 @@ function gregosheet.spacing_compute(melody, lyrics)
           width_sp = 0
         })
         recompute_delimiter_width(system.melody[#system.melody], gap_to_page_end_sp, "max")
+
+        table.insert(systems, system)
+        system = {clef = clef, melody = {}, lyrics = {}}
       end
-      table.insert(systems, system)
-      system = {clef = clef, melody = {}, lyrics = {}}
     else
       if lyric and lyric.start_sp then
         table.insert(system.lyrics, lyric)
@@ -299,23 +316,6 @@ function gregosheet.spacing_compute(melody, lyrics)
   end
 
   table.insert(systems, system)
-
-  -- Check alignment
-  for i, sys in ipairs(systems) do
-    local pos = sys.clef.width_sp
-    for j, token in ipairs(sys.melody) do
-      if token.type == 'note' and token.lyric then
-        local note_center = pos + token.width_sp / 2
-        local lyric = lyrics[token.lyric]
-        local lyric_center = lyric.start_sp + lyric.width_sp / 2
-        if math.abs(note_center - lyric_center) > 1 then
-          texio.write_nl(string.format("MISALIGN: System %d, note '%s' center=%.0f, lyric '%s' center=%.0f, diff=%.0f",
-            i, token.value, note_center, lyric.text, lyric_center, lyric_center - note_center))
-        end
-      end
-      pos = pos + token.width_sp
-    end
-  end
 
   return systems
 end
