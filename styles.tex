@@ -1,0 +1,113 @@
+% Font sizes
+\newcommand{\musicfontsize}{20}
+\newcommand{\lyricfontsize}{10}
+\newcommand{\psalmfontsize}{10}
+
+% Fonts
+% Change this to any font command you want:
+% \rmfamily (roman/serif), \sffamily (sans-serif), \ttfamily (monospace)
+% or use \setmainfont{FontName} or \newfontfamily for specific fonts
+\newfontfamily\lyricfont{Cambria}
+\newfontfamily\psalmfont{Cambria}
+\newfontfamily\headingfont[BoldFont={Cambria Bold}]{Cambria}
+
+% Spacing
+\newcommand{\systemvskip}{10pt}
+\newcommand{\lyricvskip}{2pt}
+\newcommand{\blockvskip}{10pt}
+
+% Page layout
+\usepackage[a5paper,margin=0.5in]{geometry}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+% Title style
+\makeatletter
+\renewcommand{\maketitle}{
+  \begin{center}
+    \headingfont\fontsize{24}{28}\selectfont\bfseries\MakeUppercase{\@title}
+    \vskip 1em
+    \headingfont\fontsize{13}{16}\selectfont\MakeUppercase{\@subtitle}
+  \end{center}
+}
+\newcommand{\subtitle}[1]{\gdef\@subtitle{#1}}
+\newcommand{\@subtitle}{}
+\makeatother
+
+% Section style
+\usepackage{titlesec}
+\titleformat{\section}
+  {\centering\headingfont\fontsize{20}{24}\selectfont\bfseries}
+  {}{0pt}{\MakeUppercase}
+\titlespacing*{\section}{0pt}{\blockvskip}{\blockvskip}
+
+% Subsection style
+\titleformat{\subsection}
+  {\centering\headingfont\fontsize{16}{20}\selectfont\bfseries\addfontfeature{LetterSpace=10.0}}
+  {}{0pt}{\MakeUppercase}
+\titlespacing*{\subsection}{0pt}{\blockvskip}{\blockvskip}
+
+% Subsubsection style
+\titleformat{\subsubsection}
+  {\centering\headingfont\fontsize{12}{14}\selectfont\bfseries\scshape\addfontfeature{LetterSpace=10.0}}
+  {}{0pt}{}
+\titlespacing*{\subsubsection}{0pt}{\blockvskip}{\blockvskip}
+
+% Part title command
+\newcommand{\parttitle}[2][]{
+  \vskip\blockvskip
+  \par\noindent
+  \headingfont\fontsize{10}{12}\selectfont
+  \textcolor{red}{\MakeUppercase{#2}}%
+  \ifx&#1&\else\hfill\textcolor{red}{#1}\fi
+  \par
+}
+
+% Commentary command
+\newcommand{\commentary}[1]{
+  \par\noindent
+  {\fontsize{8}{10}\selectfont\textcolor{red}{#1}}
+  \par
+}
+
+% Versicle-Response command
+\newcommand{\versicle}[2]{
+  \par\noindent
+  \hangindent=1em\hangafter=1
+  \emergencystretch=1em
+  \makebox[1em][l]{\textcolor{red}{V.}}#1
+  \par\noindent
+  \hangindent=1em\hangafter=1
+  \emergencystretch=1em
+  \makebox[1em][l]{\textcolor{red}{F.}}#2
+  \par
+}
+
+% Hymn stanzas environment
+\usepackage{multicol}
+\newenvironment{hymnstanzas}{
+  \setlength{\leftmargin}{0pt}
+  \setlength{\rightmargin}{0pt}
+  \setlength{\columnsep}{8em}
+  \begin{multicols}{2}
+  \raggedright
+}{
+  \end{multicols}
+}
+
+\newcommand{\stanzabreak}{%
+  \par\addvspace{0.8\baselineskip}%
+}
+
+
+% Single centered stanza (for odd last stanza)
+\newcommand{\centerstanza}[1]{
+  \par
+  \begin{center}
+  \begin{minipage}{0.4\textwidth}
+  \raggedright
+  #1
+  \end{minipage}
+  \end{center}
+  \par
+}

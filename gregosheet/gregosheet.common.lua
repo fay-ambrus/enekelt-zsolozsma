@@ -8,10 +8,10 @@ gregosheet.std_delimiter_sequence = "---"
 gregosheet.tolerable_syllabel_gap_sp = 73000
 
 -- Code tables
-gregosheet.notes = "[ðñ0123456789öüó%^qwertzuiopõúÝÞQWERTZUIOPÕÚÔ×asdfghjkléáûØÙASDFGHJKLÉÁÛ`íyxcvbnmzZ÷øÍYXCVBNŸ¡¢£¥¦©ª«¬àâãäåæçèêëìîï%]¨]"
+gregosheet.notes = "[ðñ0123456789öüó%^qwertzuiopõúÝÞQWERTZUIOPÕÚÔ×asdfghjkléáûØÙASDFGHJKLÉÁÛ`íyxcvbnmzZŸ¡¢£¥¦©ª«¬àâãäåæçèêëìîï%]¨]"
 gregosheet.recited_notes = "[%[Ÿ¡¢£¥¦©ª«¬]"
 gregosheet.delimiters = "[%-_*]"
-gregosheet.symbols = "[¼ÿ®−§'\"+!%%/=()ÖÜÓ%sM>#&@{}<¿À]"
+gregosheet.symbols = "[¼ÿ®−§'\"+!%%/=()ÖÜÓ%sM>#&@{}<¿À÷øÍYXCVBN]"
 gregosheet.barlines = "[,.?:;]"
 
 -- Measure text width in scaled points

@@ -1,0 +1,63 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{gregosheet-psalm}[2025/01/01 Psalm notation]
+
+\RequirePackage{fontspec}
+\RequirePackage{luacode}
+\RequirePackage{xparse}
+\RequirePackage{xcolor}
+
+% Load Lua module for psalms
+\directlua{
+  require("gregosheet-psalm/gregosheet-psalm.syllabify")
+  require("gregosheet-psalm/gregosheet-psalm.marking")
+  require("gregosheet-psalm/gregosheet-psalm.render")
+  require("gregosheet-psalm/gregosheet-psalm.main")
+}
+
+\ExplSyntaxOn
+\tl_new:N \g_psalmsheet_text_tl
+\tl_new:N \g_psalmsheet_tone_tl
+\tl_new:N \g_psalmsheet_number_tl
+\tl_new:N \g_psalmsheet_title_tl
+\tl_new:N \g_psalmsheet_motto_tl
+\bool_new:N \g_psalmsheet_initium_bool
+\bool_new:N \g_psalmsheet_continuous_bool
+
+\NewDocumentEnvironment{psalmsheet}{O{}}{
+  % Parse options
+  \keys_set:nn { psalmsheet } { #1 }
+  \vskip\blockvskip
+  \catcode`\_=12
+  \catcode`\^=12
+  \catcode`\$=12
+}{
+  % end: process psalm
+  \directlua{
+    gregosheet_psalm.main(
+      "\luaescapestring{\tl_use:N \g_psalmsheet_text_tl}",
+      "\luaescapestring{\tl_use:N \g_psalmsheet_tone_tl}",
+      \bool_if:NTF \g_psalmsheet_initium_bool {true} {false},
+      \bool_if:NTF \g_psalmsheet_continuous_bool {true} {false},
+      "\luaescapestring{\tl_use:N \g_psalmsheet_number_tl}",
+      "\luaescapestring{\tl_use:N \g_psalmsheet_title_tl}",
+      "\luaescapestring{\tl_use:N \g_psalmsheet_motto_tl}"
+    )
+  }
+}
+
+\keys_define:nn { psalmsheet } {
+  tone .tl_set:N = \g_psalmsheet_tone_tl,
+  number .tl_set:N = \g_psalmsheet_number_tl,
+  title .tl_set:N = \g_psalmsheet_title_tl,
+  motto .tl_set:N = \g_psalmsheet_motto_tl,
+  initium .bool_set:N = \g_psalmsheet_initium_bool,
+  initium .default:n = true,
+  continuous .bool_set:N = \g_psalmsheet_continuous_bool,
+  continuous .default:n = true
+}
+
+\NewDocumentCommand{\psalmtext}{+m}{
+  \tl_gset:Nn \g_psalmsheet_text_tl {#1}
+}
+
+\ExplSyntaxOff
