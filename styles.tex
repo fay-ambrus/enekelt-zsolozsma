@@ -8,7 +8,7 @@
 % \rmfamily (roman/serif), \sffamily (sans-serif), \ttfamily (monospace)
 % or use \setmainfont{FontName} or \newfontfamily for specific fonts
 \newfontfamily\lyricfont{Cambria}
-\newfontfamily\psalmfont{Cambria}
+\newfontfamily\psalmfont[BoldFont={Cambria Bold}]{Cambria}
 \newfontfamily\headingfont[BoldFont={Cambria Bold}]{Cambria}
 
 % Spacing
@@ -49,7 +49,7 @@
 
 % Subsubsection style
 \titleformat{\subsubsection}
-  {\centering\headingfont\fontsize{12}{14}\selectfont\bfseries\scshape\addfontfeature{LetterSpace=10.0}}
+  {\centering\headingfont\fontsize{12}{14}\selectfont\bfseries\scshape}
   {}{0pt}{}
 \titlespacing*{\subsubsection}{0pt}{\blockvskip}{\blockvskip}
 
@@ -67,6 +67,13 @@
 \newcommand{\commentary}[1]{
   \par\noindent
   {\fontsize{8}{10}\selectfont\textcolor{red}{#1}}
+  \par
+}
+
+% Red text command
+\newcommand{\redtext}[1]{
+  \par\noindent
+  \textcolor{red}{#1}
   \par
 }
 
@@ -88,8 +95,8 @@
 \newenvironment{hymnstanzas}{
   \setlength{\leftmargin}{0pt}
   \setlength{\rightmargin}{0pt}
-  \setlength{\columnsep}{8em}
-  \begin{multicols}{2}
+  \setlength{\columnsep}{4em}
+  \begin{multicols}{2}[1]
   \raggedright
 }{
   \end{multicols}

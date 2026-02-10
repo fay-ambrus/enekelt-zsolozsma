@@ -1,7 +1,9 @@
 gregosheet_psalm = gregosheet_psalm or {}
 
 local function parse_verse_parts(verse)
-  local parts = {flexa = nil, mediatio = nil, terminatio = nil}
+  local verse_number = verse:match("^(%d+)%.%s*")
+  verse = verse:gsub("^%d+%.%s*", "")
+  local parts = {flexa = nil, mediatio = nil, terminatio = nil, number = verse_number}
 
   local flexa_pos = verse:find("†")
   local mediatio_pos = verse:find("*")
@@ -47,7 +49,7 @@ function gregosheet_psalm.main(text, tone, initium, continuous, number, title, m
       table.insert(sections, cleaned)
     end
   end
-  
+
   local all_verses_data = {}
   for s_idx, section in ipairs(sections) do
     local verses = {}
@@ -61,16 +63,30 @@ function gregosheet_psalm.main(text, tone, initium, continuous, number, title, m
     for i, verse in ipairs(verses) do
       local parts = parse_verse_parts(verse)
       local verse_data = {}
-      
+
+      if parts.number then
+        verse_data.number = parts.number
+      end
+
       if parts.flexa then
         local counts = get_word_syllable_counts(parts.flexa)
-        local underline, slash = gregosheet_psalm.mark_flexa(counts, tone, initium)
+        local underline, slash
+        if s_idx == 1 and i == 1 then
+          underline, slash = gregosheet_psalm.mark_flexa(counts, tone, true)
+        else
+          underline, slash = gregosheet_psalm.mark_flexa(counts, tone, initium)
+        end
         verse_data.flexa = {text = parts.flexa, underline = underline, slash = slash}
       end
 
       if parts.mediatio then
         local counts = get_word_syllable_counts(parts.mediatio)
-        local underline, slash = gregosheet_psalm.mark_mediatio(counts, tone, initium)
+        local underline, slash
+        if s_idx == 1 and i == 1 and not parts.flexa then
+          underline, slash = gregosheet_psalm.mark_mediatio(counts, tone, true)
+        else
+          underline, slash = gregosheet_psalm.mark_mediatio(counts, tone, initium)
+        end
         verse_data.mediatio = {text = parts.mediatio, underline = underline, slash = slash}
       end
 
@@ -79,12 +95,12 @@ function gregosheet_psalm.main(text, tone, initium, continuous, number, title, m
         local underline, slash = gregosheet_psalm.mark_terminatio(counts, tone)
         verse_data.terminatio = {text = parts.terminatio, underline = underline, slash = slash}
       end
-      
+
       table.insert(verses_data, verse_data)
     end
-    
+
     table.insert(all_verses_data, {section = verses_data, is_new_section = s_idx > 1})
   end
-  
+
   gregosheet_psalm.render(all_verses_data, continuous, number, title, motto)
 end

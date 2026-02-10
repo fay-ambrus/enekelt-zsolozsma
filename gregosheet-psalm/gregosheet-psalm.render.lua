@@ -97,30 +97,58 @@ function gregosheet_psalm.render(sections_data, continuous, number, title, motto
     tex.sprint("\\vskip\\blockvskip")
   end
   
-  for s_idx, section_info in ipairs(sections_data) do
-    if section_info.is_new_section then
-      tex.sprint("\\vskip\\blockvskip")
-    end
+  if continuous then
+    tex.sprint("\\par\\noindent\\raggedright")
+    tex.sprint("\\fontsize{\\psalmfontsize}{12}\\selectfont\\psalmfont")
     
-    for i, verse_data in ipairs(section_info.section) do
-      tex.sprint("\\par\\noindent")
-      tex.sprint("\\fontsize{\\psalmfontsize}{12}\\selectfont\\psalmfont")
-      tex.sprint("\\hangindent=0.4in\\hangafter=1")
+    for s_idx, section_info in ipairs(sections_data) do
+      for i, verse_data in ipairs(section_info.section) do
+        if verse_data.number then
+          tex.sprint("\\textbf{" .. verse_data.number .. ".} ")
+        end
+        
+        if verse_data.flexa then
+          render_part(verse_data.flexa.text, verse_data.flexa.underline, verse_data.flexa.slash)
+          tex.sprint(" † ")
+        end
+
+        if verse_data.mediatio then
+          render_part(verse_data.mediatio.text, verse_data.mediatio.underline, verse_data.mediatio.slash)
+          tex.sprint(" * ")
+        end
+
+        if verse_data.terminatio then
+          render_part(verse_data.terminatio.text, verse_data.terminatio.underline, verse_data.terminatio.slash)
+          tex.sprint(" ")
+        end
+      end
+    end
+  else
+    for s_idx, section_info in ipairs(sections_data) do
+      if section_info.is_new_section then
+        tex.sprint("\\vskip\\blockvskip")
+      end
       
-      if verse_data.flexa then
-        render_part(verse_data.flexa.text, verse_data.flexa.underline, verse_data.flexa.slash)
-        tex.sprint(" †")
-        tex.sprint("\\par\\noindent\\hskip0.2in\\hangindent=0.4in\\hangafter=1")
-      end
+      for i, verse_data in ipairs(section_info.section) do
+        tex.sprint("\\par\\noindent")
+        tex.sprint("\\fontsize{\\psalmfontsize}{12}\\selectfont\\psalmfont")
+        tex.sprint("\\hangindent=0.4in\\hangafter=1")
+        
+        if verse_data.flexa then
+          render_part(verse_data.flexa.text, verse_data.flexa.underline, verse_data.flexa.slash)
+          tex.sprint(" †")
+          tex.sprint("\\par\\noindent\\hskip0.2in\\hangindent=0.4in\\hangafter=1")
+        end
 
-      if verse_data.mediatio then
-        render_part(verse_data.mediatio.text, verse_data.mediatio.underline, verse_data.mediatio.slash)
-        tex.sprint(" *")
-        tex.sprint("\\par\\noindent\\hskip0.2in\\hangindent=0.4in\\hangafter=1")
-      end
+        if verse_data.mediatio then
+          render_part(verse_data.mediatio.text, verse_data.mediatio.underline, verse_data.mediatio.slash)
+          tex.sprint(" *")
+          tex.sprint("\\par\\noindent\\hskip0.2in\\hangindent=0.4in\\hangafter=1")
+        end
 
-      if verse_data.terminatio then
-        render_part(verse_data.terminatio.text, verse_data.terminatio.underline, verse_data.terminatio.slash)
+        if verse_data.terminatio then
+          render_part(verse_data.terminatio.text, verse_data.terminatio.underline, verse_data.terminatio.slash)
+        end
       end
     end
   end
