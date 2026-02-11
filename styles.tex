@@ -77,6 +77,9 @@
   \par
 }
 
+% Red dash command
+\newcommand{\reddash}{\textcolor{red}{\textemdash{}}}
+
 % Versicle-Response command
 \newcommand{\versicle}[2]{
   \par\noindent
@@ -118,3 +121,18 @@
   \end{center}
   \par
 }
+
+% Structured text environment
+\newenvironment{preces}[2]{
+  \par\noindent
+  #1
+  \par\noindent
+  \hskip0.2in\textit{#2}
+  \par
+  \setlength{\parindent}{0pt}
+  \everypar{\hangindent=0.2in\hangafter=1}
+}{
+  \par
+}
+
+\usepackage{ragged2e}

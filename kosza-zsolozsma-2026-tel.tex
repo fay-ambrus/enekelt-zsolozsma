@@ -2,9 +2,10 @@
 \usepackage{gregosheet}
 \usepackage{gregosheet-psalm}
 \input{styles}
+\input{ordo-cantus-officii-sheets}
 
 \title{Tábori zsolozsmáskönyv}
-\subtitle{902. Kucsera Ferenc cserkészcsapat - Gróf Széchenyi István raj - 2026 téli tábor}
+\subtitle{902. Kucsera Ferenc cserkészcsapat - Gróf Széchenyi István raj - 2026. téli tábor}
 
 \begin{document}
 
@@ -31,11 +32,7 @@
 
 \parttitle{Himnusz}
 
-% Hymnus: Iesu, quadragenariae
-\begin{gregosheet}
-  \melody{<-3--2--4----tT4---3----4t--tT4R3-2-:-1--1t--5---5---tT4-4z-tT4-4t--;-5--5----4--tT4-3---4----eE2-1--:-3----2--4---tT4-3---4t-tT4R3-2-.}
-  \lyrics{  Úr Jé-zus, szent negy-ven-na-pos    böj-töd vál-lal-juk új-ra most: üd-vünk-re pél-dát adsz ne-künk, hogy fé-kez-zük ter-mé-sze-tünk.}
-\end{gregosheet}
+\printsheet{IesuQuadragenariae}
 
 \begin{hymnstanzas}
   Légy hát az Egyház támasza, \\
@@ -61,11 +58,7 @@
 
 \redtext{1. antifóna}
 
-% Antiphona: Inclinavit Dominus
-\begin{gregosheet}
-  \melody{<-3---3----4--tT4-5-:-2-3---4--eE2-1---1---,,-5-5-4-3-4t-4.}
-  \lyrics{  Meg-hall-ja az  Úr  i-mád-sá-gom sza-vát.}
-\end{gregosheet}
+\printsheet{InclinavitDominus}
 
 \begin{psalmsheet}[tone=1, continuous, number={114. zsoltár}, title={Hálaadás}, motto={Sok szorongatás közepette kell bejutnunk az Isten országába (ApCsel 14, 21).}]
   \psalmtext{
@@ -86,11 +79,7 @@
 
 \redtext{2. antifóna}
 
-% Antiphona: Auxilium meum
-\begin{gregosheet}
-  \melody{<-3--eE2W1-1-:-0-1--3--3---0e-1----,,-3--3--0q--1.}
-  \lyrics{  Az Úr-tól    a mi se-gít-sé-günk.}
-\end{gregosheet}
+\printsheet{AuxiliumMeum}
 
 \begin{psalmsheet}[tone=2, continuous, number={120. zsoltár}, title={Népünk őrzője}, motto={Nem éheznek, és nem szomjaznak többé, a nap nem égeti őket, sem másfajta hőség (Jel 7, 16).}]
   \psalmtext{
@@ -110,11 +99,7 @@
 
 \redtext{3. antifóna}
 
-% Antiphona: In consilio iustorum
-\begin{gregosheet}
-  \melody{<-4--4-4--4---5--4--5---4-:-3t-7---7--6--5--4u-zZ5-:-4--4----5--5--4--4--4-,,-7-7-6-7-5-4-.}
-  \lyrics{  Az i-ga-zak ta-ná-csá-ban és gyü-le-ke-ze-té-ben   na-gyok az Úr mű-ve-i.}
-\end{gregosheet}
+\printsheet{InConsilioIustorum}
 
 \begin{psalmsheet}[tone=8, continuous, title={A hódolat éneke}]
   \psalmtext{
@@ -125,5 +110,61 @@
     4. Egyedül csak te vagy a Szent, † eljön minden nemzet, és színed elé borul, * mert nyilvánvalóvá lett, ahogyan ítéltél.
 }
 \end{psalmsheet}
+
+\parttitle[Jak 5,16.19-20]{Rövid olvasmány}
+
+Valljátok meg egymásnak bűneiteket, és imádkozzatok egymásért, hogy meggyó\-gyulj\underline{a}t\underline{o}k. † Igen hathatós az igaz ember buzgó k\underline{ö}nyörgése. * Testvéreim, ha valaki közületek letér az igazság útjáról, és akad, aki visszatéríti, az tudja meg, hogy aki a bűnöst letéríti a tévelygés útjáról, megmenti lelkét a haláltól, és tömérdek bűnre fáty\underline{o}lt b\underline{o}rít.
+
+\parttitle{Rövid válaszos ének}
+
+\printsheet{EgoDixi}
+
+\parttitle[Lk 1,46-55]{Magnificat}
+
+\printsheet{QuaerentesEumTenere}
+
+\begin{psalmsheet}[tone=3, continuous, initium, title={A lélek az Úrban ujjong}]
+  \psalmtext{
+    1. Magasztalja lelkem az Urat, * és szívem ujjong üdvözítő Istenemben. \\
+    2. Tekintetre méltatta alázatos szolgálóleányát: * Íme, ezentúl boldognak hirdetnek az összes nemzedékek, \\
+    3. mert nagyot művelt velem ő, aki Hatalmas: * ő, akit Szentnek hívunk. \\
+    4. Nemzedékről nemzedékre megmarad irgalma azokon, * akik istenfélők. ---
+
+    5. Csodát művelt erős karjával: * a kevélykedőket széjjelszórta, \\
+    6. hatalmasokat elűzött trónjukról, * kicsinyeket pedig felmagasztalt; \\
+    7. az éhezőket minden jóval betölti, * a gazdagokat elbocsátja üres kézzel. ---
+
+    8. Gondjába vette gyermekét, Izraelt: * megemlékezett irgalmáról, \\
+    9. melyet atyáinknak hajdan megígért, * Ábrahámnak és utódainak mindörökké.
+}
+\end{psalmsheet}
+
+\parttitle{Fohászok}
+
+\begin{preces}{%
+  Imádjuk az emberi nem Megváltóját, aki halálával legyőzte a halált, és feltámadásával %
+  újjáalkotta az életet. Kérjük alázatos lélekkel.%
+}{Szenteld meg népedet, amelyet véreddel megváltottál!}
+  Isteni Megváltónk, engedd, hogy a bűnbánattal szorosabban kapcsolódjunk szenvedésedhez,
+
+  \reddash{} és így eljussunk a feltámadás dicsőségére!
+
+  Engedd, hogy elnyerjük Édesanyádnak, a szomorúak vigasztalójának pártfogását,
+
+  \reddash{} és erősítsük a szomorkodókat azzal a vigasztalással, amellyel te erősítesz minket!
+
+  Add meg híveidnek, hogy megpróbáltatásaik által szenvedésed részeseivé legyenek,
+
+  \reddash{} s így valósuljon meg bennük megváltásod!
+
+  Te megaláztad magad, és engedelmes lettél a halálig, mégpedig a kereszthalálig,
+
+  \reddash{} növeld szolgáidban az engedelmességet és a türelmet!
+
+  Elhunyt testvéreinket részesítsd tested dicsőséges feltámadásában,
+
+  \reddash{} és egykor tégy minket is társaikká!
+\end{preces}
+
 
 \end{document}

@@ -16,13 +16,13 @@ end
 local function render_part(text, underline_indices, slash_idx)
   local syllables = gregosheet_psalm.syllabify_hungarian(text)
   local syl_idx = 0
-  
+
   for i, syl in ipairs(syllables) do
     if syl == " " then
       tex.sprint(" ")
     else
       syl_idx = syl_idx + 1
-      
+
       local should_underline = false
       for _, u_idx in ipairs(underline_indices or {}) do
         if u_idx == syl_idx then
@@ -30,7 +30,7 @@ local function render_part(text, underline_indices, slash_idx)
           break
         end
       end
-      
+
       if should_underline then
         local before, vowel, after = underline_vowel(syl)
         tex.sprint(-2, before)
@@ -43,7 +43,7 @@ local function render_part(text, underline_indices, slash_idx)
       else
         tex.sprint(-2, syl)
       end
-      
+
       if slash_idx and slash_idx == syl_idx then
         if i < #syllables and syllables[i+1] == " " then
           tex.sprint(" /")
@@ -65,7 +65,7 @@ function gregosheet_psalm.render(sections_data, continuous, number, title, motto
     tex.sprint("}")
     tex.sprint("\\vskip0.5\\blockvskip")
   end
-  
+
   -- Render title if provided
   if title and title ~= "" then
     tex.sprint("\\par\\noindent\\centering")
@@ -75,7 +75,7 @@ function gregosheet_psalm.render(sections_data, continuous, number, title, motto
     tex.sprint("}")
     tex.sprint("\\vskip0.5\\blockvskip")
   end
-  
+
   -- Render motto if provided
   if motto and motto ~= "" then
     tex.sprint("\\par\\noindent\\raggedright")
@@ -96,17 +96,18 @@ function gregosheet_psalm.render(sections_data, continuous, number, title, motto
     end
     tex.sprint("\\vskip\\blockvskip")
   end
-  
+
   if continuous then
     tex.sprint("\\par\\noindent\\raggedright")
     tex.sprint("\\fontsize{\\psalmfontsize}{12}\\selectfont\\psalmfont")
-    
+    tex.sprint("\\begin{justify}")
+
     for s_idx, section_info in ipairs(sections_data) do
       for i, verse_data in ipairs(section_info.section) do
         if verse_data.number then
           tex.sprint("\\textbf{" .. verse_data.number .. ".} ")
         end
-        
+
         if verse_data.flexa then
           render_part(verse_data.flexa.text, verse_data.flexa.underline, verse_data.flexa.slash)
           tex.sprint(" † ")
@@ -123,17 +124,19 @@ function gregosheet_psalm.render(sections_data, continuous, number, title, motto
         end
       end
     end
+
+    tex.sprint("\\end{justify}")
   else
     for s_idx, section_info in ipairs(sections_data) do
       if section_info.is_new_section then
         tex.sprint("\\vskip\\blockvskip")
       end
-      
+
       for i, verse_data in ipairs(section_info.section) do
         tex.sprint("\\par\\noindent")
         tex.sprint("\\fontsize{\\psalmfontsize}{12}\\selectfont\\psalmfont")
         tex.sprint("\\hangindent=0.4in\\hangafter=1")
-        
+
         if verse_data.flexa then
           render_part(verse_data.flexa.text, verse_data.flexa.underline, verse_data.flexa.slash)
           tex.sprint(" †")

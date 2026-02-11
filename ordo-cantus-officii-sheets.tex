@@ -1,0 +1,107 @@
+\makeatletter
+
+\newcommand{\printsheet}[1]{%
+  \ifcsname sheet@#1\endcsname
+    \csname sheet@#1\endcsname
+  \else
+    \textbf{[Missing sheet: #1]}%
+  \fi
+}
+
+% ============================================================================
+% I. PROPRIUM DE TEMPORE
+% ============================================================================
+
+% ----------------------------------------------------------------------------
+% III. Tempus Quadragaeismae
+% ----------------------------------------------------------------------------
+
+% ----------------------------------------------------------------------------
+% a. Usque ad sabbatum hebdomadae quintae
+% ----------------------------------------------------------------------------
+
+% --- Pro cunctis diebus ---
+
+% ··· Vesperas ···
+
+% In officio dominicali
+% TODO
+
+% In officio feriali
+
+% Hymnus
+\newcommand{\sheet@IesuQuadragenariae}{%
+  \begin{gregosheet}
+    \melody{<-3--2--4----tT4---3----4t--tT4R3-2-:-1--1t--5---5---tT4-4z-tT4-4t--;-5--5----4--tT4-3---4----eE2-1--:-3----2--4---tT4-3---4t-tT4R3-2-.}
+    \lyrics{  Úr Jé-zus, szent negy-ven-na-pos    böj-töd vál-lal-juk új-ra most: üd-vünk-re pél-dát adsz ne-künk, hogy fé-kez-zük ter-mé-sze-tünk.}
+  \end{gregosheet}
+}
+
+% Responsorium breve
+\newcommand{\sheet@EgoDixi}{%
+  \begin{gregosheet}
+    \melody{<X-3---4----3----4t-5---,-4--5---rR3--4---3-,,-5---5-----5---4--4--,-4----4---4---5---rR3-4t-5-,-5--5---5---5--5-5z--5-:-5-5--4-4-:-5--5-4-----3--4t--tT4.}
+    \lyrics{   Így szól-tam: U-ram, * Kö-nyö-rülj raj-tam! Gyó-gyíts meg en-gem, mert vét-kez-tem el-le-ned. Di-cső-ség az A-tyá-nak a Fi-ú-nak és a Szent-lé-lek-nek.}
+  \end{gregosheet}
+}
+
+% ············································································
+% Hebdomada II Quadragesimae
+% ············································································
+
+% --- Feria VI ---
+
+% ··· Vesperas ···
+
+% Magnificat
+
+\newcommand{\sheet@QuaerentesEumTenere}{%
+  \begin{gregosheet}[tone=3. tónus]
+    \melody{<-4--5---6--7-5---7---6----:-4--4---5---5-zZ5-4--,-6----6---5--uU6-4-:-5--rR3-rR3-2-,,-7-7-5u-5-4-.}
+    \lyrics{  El-fog-ni i-gye-kez-tek, * de fél-tek a nép-től, mert pró-fé-tá-nak tar-tot-ták őt.}
+  \end{gregosheet}%
+}
+
+% ============================================================================
+% II. PSALTERIUM PER QUATTOR HEBDOMADAS DISTRIBUTUM
+% ============================================================================
+
+% ············································································
+% Hebdomada II
+% ············································································
+
+% --- Feria VI ---
+
+% ··· Vesperas ···
+
+% Hymnus
+% TODO
+
+% Antiphona
+\newcommand{\sheet@InclinavitDominus}{%
+  \begin{gregosheet}[tone=1. ré tónus]
+    \melody{<-3---3----4--tT4-5-:-2-3---4--eE2-1---1---,,-5-5-4-3-4t-4.}
+    \lyrics{  Meg-hall-ja az  Úr  i-mád-sá-gom sza-vát.}
+  \end{gregosheet}%
+}
+
+% Antiphona
+\newcommand{\sheet@AuxiliumMeum}{%
+  \begin{gregosheet}[tone=2. tónus]
+    \melody{<-3--eE2W1-1-:-0-1--3--3---0e-1----,,-3--3--0q--1.}
+    \lyrics{  Az Úr-tól    a mi se-gít-sé-günk.}
+  \end{gregosheet}%
+}
+
+% vel ad libitum:
+% TODO
+
+% Antiphona
+\newcommand{\sheet@InConsilioIustorum}{%
+  \begin{gregosheet}[tone=8. szó tónus]
+    \melody{<-4--4-4--4---5--4--5---4-:-3t-7---7--6--5--4u-zZ5-:-4--4----5--5--4--4--4-,,-7-7-6-7-5-4-.}
+    \lyrics{  Az i-ga-zak ta-ná-csá-ban és gyü-le-ke-ze-té-ben   na-gyok az Úr mű-ve-i.}
+  \end{gregosheet}%
+}
+
+\makeatother

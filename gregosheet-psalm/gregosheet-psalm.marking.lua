@@ -46,11 +46,9 @@ function gregosheet_psalm.mark_mediatio(wsc, tone, initium)
 
   -- Initium
   if initium then
-    texio.write_nl("debug " .. wsc[1] .. " " .. wsc[2])
     if tone == "tonus-pregrinus" then
       table.insert(underline, 1)
     elseif wsc[1] == 1 and wsc[2] and wsc[2] ~= 1 then
-      texio.write_nl("debug " .. wsc[1] .. " " .. wsc[2])
       table.insert(underline, 1)
     end
   end
