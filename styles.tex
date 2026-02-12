@@ -10,6 +10,7 @@
 \newfontfamily\lyricfont{Cambria}
 \newfontfamily\psalmfont[BoldFont={Cambria Bold}]{Cambria}
 \newfontfamily\headingfont[BoldFont={Cambria Bold}]{Cambria}
+\setmainfont{Cambria}
 
 % Spacing
 \newcommand{\systemvskip}{10pt}
@@ -78,7 +79,8 @@
 }
 
 % Red dash command
-\newcommand{\reddash}{\textcolor{red}{\textemdash{}}}
+\newcommand{\reddash}{\textcolor{red}{\textemdash{}}\xspace}
+\usepackage{xspace}
 
 % Versicle-Response command
 \newcommand{\versicle}[2]{
@@ -99,7 +101,7 @@
   \setlength{\leftmargin}{0pt}
   \setlength{\rightmargin}{0pt}
   \setlength{\columnsep}{4em}
-  \begin{multicols}{2}[1]
+  \begin{multicols}{2}
   \raggedright
 }{
   \end{multicols}
