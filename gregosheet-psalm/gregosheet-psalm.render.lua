@@ -55,7 +55,7 @@ local function render_part(text, underline_indices, slash_idx)
   end
 end
 
-function gregosheet_psalm.render(sections_data, continuous, number, title, motto)
+function gregosheet_psalm.render(sections_data, continuous, number, title, motto, numeral)
   -- Render number if provided
   if number and number ~= "" then
     tex.sprint("\\par\\noindent\\centering")
@@ -94,6 +94,16 @@ function gregosheet_psalm.render(sections_data, continuous, number, title, motto
       tex.sprint(-2, motto)
       tex.sprint("}")
     end
+    tex.sprint("\\vskip\\blockvskip")
+  end
+  
+  -- Render numeral if provided
+  if numeral and numeral ~= "" then
+    tex.sprint("\\par\\noindent\\centering")
+    tex.sprint("\\fontsize{\\psalmfontsize}{12}\\selectfont\\psalmfont")
+    tex.sprint("\\textcolor{red}{")
+    tex.sprint(-2, numeral)
+    tex.sprint("}")
     tex.sprint("\\vskip\\blockvskip")
   end
 

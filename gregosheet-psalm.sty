@@ -20,6 +20,7 @@
 \tl_new:N \g_psalmsheet_number_tl
 \tl_new:N \g_psalmsheet_title_tl
 \tl_new:N \g_psalmsheet_motto_tl
+\tl_new:N \g_psalmsheet_numeral_tl
 \bool_new:N \g_psalmsheet_initium_bool
 \bool_new:N \g_psalmsheet_continuous_bool
 
@@ -40,7 +41,8 @@
       \bool_if:NTF \g_psalmsheet_continuous_bool {true} {false},
       "\luaescapestring{\tl_use:N \g_psalmsheet_number_tl}",
       "\luaescapestring{\tl_use:N \g_psalmsheet_title_tl}",
-      "\luaescapestring{\tl_use:N \g_psalmsheet_motto_tl}"
+      "\luaescapestring{\tl_use:N \g_psalmsheet_motto_tl}",
+      "\luaescapestring{\tl_use:N \g_psalmsheet_numeral_tl}"
     )
   }
   \vskip\blockvskip
@@ -51,6 +53,7 @@
   number .tl_set:N = \g_psalmsheet_number_tl,
   title .tl_set:N = \g_psalmsheet_title_tl,
   motto .tl_set:N = \g_psalmsheet_motto_tl,
+  numeral .tl_set:N = \g_psalmsheet_numeral_tl,
   initium .bool_set:N = \g_psalmsheet_initium_bool,
   initium .default:n = true,
   continuous .bool_set:N = \g_psalmsheet_continuous_bool,

@@ -38,7 +38,7 @@ local function get_word_syllable_counts(text)
   return word_counts
 end
 
-function gregosheet_psalm.main(text, tone, initium, continuous, number, title, motto)
+function gregosheet_psalm.main(text, tone, initium, continuous, number, title, motto, numeral)
 
   -- Split by section separator (---)
   local sections = {}
@@ -102,5 +102,5 @@ function gregosheet_psalm.main(text, tone, initium, continuous, number, title, m
     table.insert(all_verses_data, {section = verses_data, is_new_section = s_idx > 1})
   end
 
-  gregosheet_psalm.render(all_verses_data, continuous, number, title, motto)
+  gregosheet_psalm.render(all_verses_data, continuous, number, title, motto, numeral)
 end

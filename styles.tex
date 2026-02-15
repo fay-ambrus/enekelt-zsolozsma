@@ -82,6 +82,14 @@
 \newcommand{\reddash}{\textcolor{red}{\textemdash{}}\xspace}
 \usepackage{xspace}
 
+% Lectio title command
+\newcommand{\lectiotitle}[1]{
+  \par\noindent
+  {\centering\textcolor{red}{\textit{#1}}\par}
+  \setlength{\parindent}{0.2in}
+  \everypar{\setlength{\parindent}{0.2in}}
+}
+
 % Versicle-Response command
 \newcommand{\versicle}[2]{
   \par\noindent
