@@ -42,11 +42,22 @@
 }
 
 % ··· Laudes ···
-% Hymnus (In officio feriali)
+
+% In officio feriali
+
+% Hymnus
 \newcommand{\sheet@IamChristeSolIustitiae}{%
   \begin{gregosheet}
     \melody{<-ð--0q--1---1w--1---0q----1--1---:-0--2-----1----3---2--qQ0w-0--1--;-0----1w--2--ws0--1---1--0-^Ýð-:-ð--0q--1--1w--1---0q---1--1-.}
     \lyrics{  Üd-vös-ség nap-ja, Krisz-tu-sunk, ha-sítsd szét vak-sá-gunk kö-dét, hogy fel-ra-gyog-jon az e-rény, mi-dőn re-ánk nap-palt ho-zol.}
+  \end{gregosheet}
+}
+
+% Responsorium breve
+\newcommand{\sheet@IpseLiberabitMe}{%
+  \begin{gregosheet}
+    \melody{<X-3-3---3--4---3---4t-tT4-,-3-4--5--4----ed1--3r-4--3-,,-5--5-4---3--3--4t---5-,,-5--5---5---5--5-5z--5-:-5-5--4-4-:-5--5-4-----3--4t--tT4.}
+    \lyrics{   Ő sza-ba-dít meg en-gem * a va-dá-szok csap-dá-já-tól. És a dur-va be-széd-től. Di-cső-ség az A-tyá-nak a Fi-ú-nak és a Szent-lé-lek-nek.}
   \end{gregosheet}
 }
 
@@ -82,7 +93,6 @@
 % ··· Vesperas ···
 
 % Magnificat
-
 \newcommand{\sheet@QuaerentesEumTenere}{%
   \begin{gregosheet}[tone=3. tónus]
     \melody{<-4--5---6--7-5---7---6----:-4--4---5---5-zZ5-4--,-6----6---5--uU6-4-:-5--rR3-rR3-2-,,-7-7-5u-5-4-.}
@@ -94,31 +104,12 @@
 
 % ··· Laudes ···
 
-% Hymnus
-% TODO
-
-% Antiphona 1
-\newcommand{\sheet@QuamMagnificataSunt}{%
-  \begin{gregosheet}[tone=8. szó tónus]
-    \melody{<-7----6---7--5--4---:-6-7--6--5--4---5-4-,,-7-6-7-5-4-.}
-    \lyrics{  Mily fön-sé-ge-sek * a te mű-ve-id, U-ram.}
-  \end{gregosheet}
-}
-
-% Antiphona 2
-\newcommand{\sheet@DateMagnitudinem}{%
-  \begin{gregosheet}[tone=6. tónus]
-    \melody{<-3--4----4---eE2-1---:-3--4--4---3-,,-5-5-4-3-4-3-.}
-    \lyrics{  Ma-gasz-tal-já--tok * Is-te-nün-ket.}
-  \end{gregosheet}
-}
-
-% Antiphona 3
-\newcommand{\sheet@QuamAdmirabileEst}{%
-  \begin{gregosheet}[tone=1. ré tónus]
-    \melody{<-0----1---1tz-5--tT4-:-3-4--5--rR3-3r-4-:--3--4-eE2--1----1-,,-5-5-4-3-4t-4-.}
-    \lyrics{  Mily cso-dá--la-tos * a te ne-ved U--runk az e-gész föld-ön.}
-  \end{gregosheet}
+% Benedictus
+\newcommand{\sheet@VadamAdPatremMeum}{%
+  \begin{gregosheet}[tone=1. lá tónus]
+    \melody{<X-1--1t-5----:-7-5----4-:-rf2-23r-eE2-1--1-,-3-123E2s0-:-34tT45z-5----4t-4---3---3---2e-4--eE2-1--1-,,-5-5-4-3-rR3-1-.}
+    \lyrics{   El-me-gyek * a-tyám-hoz és  mon-dom ne-ki: A-tyám,     fo------gadj en-gem nap-szá-mo-sa-id  kö-zé.}
+  \end{gregosheet}%
 }
 
 % ============================================================================
@@ -192,6 +183,35 @@
     \melody{<-0-----1---2e--4----eE2-1--:-3------eE2-4t--eE2-qQ0-1-1---eE2-1---0q-1-,,-5-5-4-3-rR3-1-.}
     \lyrics{  Ments meg min-ket, U---ram, gyűjts ösz-sze min-ket a nem-ze--tek kö-zül!}
   \end{gregosheet}%
+}
+
+% ··· Laudes ···
+
+% Hymnus
+% TODO
+
+% Antiphona 1
+\newcommand{\sheet@QuamMagnificataSunt}{%
+  \begin{gregosheet}[tone=8. szó tónus]
+    \melody{<-7----6---7--5--4---:-6-7--6--5--4---5-4-,,-7-6-7-5-4-.}
+    \lyrics{  Mily fön-sé-ge-sek * a te mű-ve-id, U-ram.}
+  \end{gregosheet}
+}
+
+% Antiphona 2
+\newcommand{\sheet@DateMagnitudinem}{%
+  \begin{gregosheet}[tone=6. tónus]
+    \melody{<-3--4----4---eE2-1---:-3--4--4---3-,,-5-5-4-3-4-3-.}
+    \lyrics{  Ma-gasz-tal-já--tok * Is-te-nün-ket.}
+  \end{gregosheet}
+}
+
+% Antiphona 3
+\newcommand{\sheet@QuamAdmirabileEst}{%
+  \begin{gregosheet}[tone=1. ré tónus]
+    \melody{<-0----1---1tz-5--tT4-:-3-4--5--rR3-3r-4-:--3--4-eE2--1----1-,,-5-5-4-3-4t-4-.}
+    \lyrics{  Mily cso-dá--la-tos * a te ne-ved U--runk az e-gész föld-ön.}
+  \end{gregosheet}
 }
 
 % ············································································
