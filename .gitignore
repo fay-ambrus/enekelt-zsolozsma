@@ -17,6 +17,8 @@ main.aux
 main.log
 main.synctex.gz
 
+*.pdf
+
 ## Intermediate documents:
 *.dvi
 *.xdv
