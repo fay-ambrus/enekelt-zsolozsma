@@ -4,6 +4,7 @@
       "name": "lualatex",
       "command": "lualatex",
       "args": [
+        "--shell-escape",
         "-interaction=nonstopmode",
         "-synctex=1",
         "%DOC%"

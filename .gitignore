@@ -19,6 +19,11 @@ main.synctex.gz
 
 *.pdf
 
+*.eps
+*.bbox
+*.ly
+tmp-ly/*
+
 ## Intermediate documents:
 *.dvi
 *.xdv
