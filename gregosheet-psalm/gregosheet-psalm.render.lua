@@ -73,11 +73,11 @@ function gregosheet_psalm.render(sections_data, continuous, number, title, motto
 
   -- Render title if provided
   if title and title ~= "" then
-    tex.sprint("\\par\\noindent\\centering")
+    tex.sprint("\\par\\noindent{\\centering")
     tex.sprint("\\fontsize{\\psalmfontsize}{12}\\selectfont\\psalmfont")
     tex.sprint("\\textcolor{red}{")
     tex.sprint(-2, title)
-    tex.sprint("}")
+    tex.sprint("}\\par}")
     tex.sprint("\\vskip0.5\\blockvskip")
   end
 

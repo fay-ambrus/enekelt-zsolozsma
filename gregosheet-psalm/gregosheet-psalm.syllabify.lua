@@ -6,11 +6,11 @@ end
 
 local function syllabify_hungarian(text)
   local result = {}
-  
+
   -- Split by spaces to get words
   for word in text:gmatch("%S+") do
-    -- Check if word is "ANT." and handle specially
-    if word == "ANT." then
+    -- Check if word is "ANT." or "ALLELUJA." and handle specially
+    if word == "ANT." or word == "ALLELUJA." then
       table.insert(result, {type = "marker", text = word})
       table.insert(result, " ")
     else
@@ -24,30 +24,30 @@ local function syllabify_hungarian(text)
       clean_word = clean_word:gsub("sz", "\7")
       clean_word = clean_word:gsub("ty", "\8")
       clean_word = clean_word:gsub("zs", "\9")
-      
+
       -- Convert to array of UTF-8 characters
       local chars = {}
       for p, c in utf8.codes(clean_word) do
         table.insert(chars, utf8.char(c))
       end
-      
+
       local current = ""
       local i = 1
-      
+
       while i <= #chars do
         local char = chars[i]
         current = current .. char
-        
+
         if is_vowel(char) then
           -- Look ahead for consonants before next vowel
           local consonants = ""
           local j = i + 1
-          
+
           while j <= #chars and not is_vowel(chars[j]) do
             consonants = consonants .. chars[j]
             j = j + 1
           end
-          
+
           if consonants == "" then
             table.insert(result, current)
             current = ""
@@ -75,27 +75,27 @@ local function syllabify_hungarian(text)
               current = cons_chars[#cons_chars]
             end
           end
-          
+
           i = j
         else
           i = i + 1
         end
       end
-      
+
       if current ~= "" then
         table.insert(result, current)
       end
-      
+
       -- Add word boundary marker
       table.insert(result, " ")
     end
   end
-  
+
   -- Remove last boundary marker
   if #result > 0 and result[#result] == " " then
     table.remove(result)
   end
-  
+
   -- Restore digraphs and trigraphs
   for i, syl in ipairs(result) do
     if syl ~= " " and type(syl) ~= "table" then
@@ -111,7 +111,7 @@ local function syllabify_hungarian(text)
       result[i] = syl
     end
   end
-  
+
   return result
 end
 
