@@ -7,6 +7,7 @@
         "--shell-escape",
         "-interaction=nonstopmode",
         "-synctex=1",
+        "-output-directory=%OUTDIR%",
         "%DOC%"
       ]
     }
@@ -17,5 +18,8 @@
       "tools": ["lualatex"]
     }
   ],
-  "latex-workshop.latex.defaultRecipe": "LuaLaTeX"
+  "latex-workshop.latex.defaultRecipe": "LuaLaTeX",
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.outDir": "%DIR%/out"
 }
