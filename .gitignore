@@ -103,3 +103,6 @@ latex.out/
 *.backup
 *.bak
 *.sav
+
+!guidohu_kod_embed.pdf
+preview.tex
