@@ -27,13 +27,6 @@
     letter-spacing: 0.05em;
   }
 
-  .panel {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-
   label {
     display: block;
     font-size: 11px;
@@ -61,20 +54,21 @@
     border-color: #007acc;
   }
 
+  .section-label {
+    font-size: 10px;
+    color: #888;
+    margin-top: 14px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
   .preview-box {
     background: #fff;
     border-radius: 3px;
-    padding: 24px 16px 8px;
-    min-height: 120px;
+    padding: 16px 16px 12px;
+    min-height: 80px;
     overflow-x: auto;
-    position: relative;
-  }
-
-  .staff-line {
-    position: absolute;
-    left: 0; right: 0;
-    height: 1px;
-    background: #aaa;
   }
 
   .music-render {
@@ -84,31 +78,29 @@
     white-space: pre;
     color: #000;
     display: block;
-    position: relative;
-    z-index: 1;
   }
 
-  .lyrics-render {
-    font-family: serif;
-    font-size: 13px;
-    color: #333;
-    margin-top: 6px;
-    white-space: pre-wrap;
-    word-spacing: 4px;
-    line-height: 1.6;
+  /* Each character is a span; backslashes are hidden */
+  .music-render span {
+    display: inline;
+    border-radius: 2px;
   }
 
-  .section-label {
-    font-size: 10px;
-    color: #888;
-    margin-top: 12px;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+  /* Cursor highlight */
+  .music-render span.cursor {
+    background: rgba(0, 122, 204, 0.25);
+    outline: 2px solid #007acc;
+    outline-offset: 1px;
+    border-radius: 2px;
+  }
+
+  /* Selection range highlight */
+  .music-render span.selected {
+    background: rgba(0, 122, 204, 0.15);
   }
 
   .char-table {
-    margin-top: 20px;
+    margin-top: 8px;
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
@@ -125,16 +117,10 @@
     min-width: 52px;
     cursor: pointer;
     user-select: none;
-    transition: border-color 0.1s;
   }
 
-  .char-cell:hover {
-    border-color: #007acc;
-  }
-
-  .char-cell:active {
-    background: #2a2d2e;
-  }
+  .char-cell:hover { border-color: #007acc; }
+  .char-cell:active { background: #2a2d2e; }
 
   .char-glyph {
     font-family: 'GuidoHU', monospace;
@@ -157,11 +143,22 @@
   .category {
     font-size: 11px;
     color: #569cd6;
-    margin-top: 16px;
-    margin-bottom: 6px;
+    margin-top: 12px;
+    margin-bottom: 4px;
     font-weight: bold;
     width: 100%;
   }
+
+  details summary {
+    cursor: pointer;
+    font-size: 12px;
+    color: #569cd6;
+    margin-top: 20px;
+    margin-bottom: 4px;
+    user-select: none;
+  }
+
+  details summary:hover { color: #79c0ff; }
 
   .toast {
     position: fixed;
@@ -176,61 +173,77 @@
     transition: opacity 0.2s;
     pointer-events: none;
   }
-
   .toast.show { opacity: 1; }
-
-  details summary {
-    cursor: pointer;
-    font-size: 12px;
-    color: #569cd6;
-    margin-top: 20px;
-    margin-bottom: 8px;
-    user-select: none;
-  }
-
-  details summary:hover { color: #79c0ff; }
 </style>
 </head>
 <body>
 
 <h1>Gregosheet Melody Preview</h1>
 
-<div class="panel">
-  <div>
-    <label>Melody string</label>
-    <textarea id="melody" rows="5" spellcheck="false" placeholder="Paste melody here..."></textarea>
-  </div>
-  <div>
-    <label>Lyrics</label>
-    <textarea id="lyrics" rows="5" spellcheck="false" placeholder="Paste lyrics here..."></textarea>
-  </div>
-</div>
+<label>Melody string</label>
+<textarea id="melody" rows="5" spellcheck="false" placeholder="Paste melody here..."></textarea>
 
 <div class="section-label">Rendered melody</div>
 <div class="preview-box">
   <span class="music-render" id="music-out"></span>
 </div>
 
-<div class="section-label" style="margin-top:12px">Lyrics (formatted)</div>
-<div class="preview-box" style="min-height:50px">
-  <div class="lyrics-render" id="lyrics-out"></div>
-</div>
-
 <details>
-  <summary>Character reference (click to copy to melody field)</summary>
+  <summary>Character reference (click to insert)</summary>
   <div class="char-table" id="char-table"></div>
 </details>
 
-<div class="toast" id="toast">Copied!</div>
+<div class="toast" id="toast"></div>
 
 <script>
   const melodyEl = document.getElementById('melody');
-  const lyricsEl = document.getElementById('lyrics');
   const musicOut  = document.getElementById('music-out');
-  const lyricsOut = document.getElementById('lyrics-out');
   const toast     = document.getElementById('toast');
 
-  // Character categories from gregosheet.common.lua
+  // Build per-character spans so we can highlight by textarea index
+  function renderMelody(str) {
+    musicOut.innerHTML = '';
+    const chars = [...str]; // Unicode-aware split
+    chars.forEach((ch, i) => {
+      const span = document.createElement('span');
+      span.dataset.idx = i;
+      span.textContent = ch;
+      musicOut.appendChild(span);
+    });
+  }
+
+  function highlightCursor() {
+    const start = melodyEl.selectionStart;
+    const end   = melodyEl.selectionEnd;
+    const spans = musicOut.querySelectorAll('span[data-idx]');
+
+    spans.forEach(sp => {
+      const i = parseInt(sp.dataset.idx);
+      sp.classList.remove('cursor', 'selected');
+      if (start === end) {
+        // Point cursor: highlight char just before cursor (or after if at 0)
+        if (i === Math.max(0, start - 1)) sp.classList.add('cursor');
+      } else {
+        // Range selection
+        if (i >= start && i < end) sp.classList.add('selected');
+      }
+    });
+  }
+
+  function update() {
+    renderMelody(melodyEl.value);
+    highlightCursor();
+  }
+
+  // Update content on input, update highlight on any cursor movement
+  melodyEl.addEventListener('input',     update);
+  melodyEl.addEventListener('keyup',     highlightCursor);
+  melodyEl.addEventListener('mouseup',   highlightCursor);
+  melodyEl.addEventListener('click',     highlightCursor);
+  melodyEl.addEventListener('focus',     highlightCursor);
+  melodyEl.addEventListener('selectionchange', highlightCursor);
+
+  // Character reference table
   const categories = {
     'Notes': '0123456789öüóqwertzuiopõúÝÞQWERTZUIOPÕÚÔasdfghjkléáûØÙASDFGHJKLÉÁÛíyxcvbnmzZ',
     'Barlines / breaks': ',.?:;\'"+=!()/%-',
@@ -238,7 +251,6 @@
     'Special chars': 'çèêëìîïàâãäåæ°±²³´µ¸¹¾Ç',
   };
 
-  // Build character reference table
   const tableEl = document.getElementById('char-table');
   for (const [cat, chars] of Object.entries(categories)) {
     const catDiv = document.createElement('div');
@@ -249,30 +261,20 @@
     for (const ch of [...chars]) {
       const cell = document.createElement('div');
       cell.className = 'char-cell';
-      cell.title = `Click to insert "${ch}"`;
+      cell.title = `Insert "${ch}"`;
       cell.innerHTML = `<span class="char-glyph">${ch}</span><span class="char-code">${ch.codePointAt(0).toString(16).toUpperCase()}</span>`;
       cell.addEventListener('click', () => {
-        const ta = melodyEl;
-        const start = ta.selectionStart;
-        const end = ta.selectionEnd;
-        const val = ta.value;
-        ta.value = val.slice(0, start) + ch + val.slice(end);
-        ta.selectionStart = ta.selectionEnd = start + ch.length;
-        ta.focus();
+        const start = melodyEl.selectionStart;
+        const end   = melodyEl.selectionEnd;
+        const val   = melodyEl.value;
+        melodyEl.value = val.slice(0, start) + ch + val.slice(end);
+        melodyEl.selectionStart = melodyEl.selectionEnd = start + ch.length;
+        melodyEl.focus();
         update();
         showToast(`Inserted: ${ch}`);
       });
       tableEl.appendChild(cell);
     }
-  }
-
-  function update() {
-    const mel = melodyEl.value;
-    const lyr = lyricsEl.value;
-    // Strip LaTeX backslash escapes for preview (\\7 -> 7)
-    musicOut.textContent = mel.replace(/\\\\/g, '');
-    // Format lyrics: replace hyphens with soft hyphens, asterisk stays
-    lyricsOut.textContent = lyr;
   }
 
   function showToast(msg) {
@@ -282,12 +284,8 @@
     showToast._t = setTimeout(() => toast.classList.remove('show'), 1200);
   }
 
-  melodyEl.addEventListener('input', update);
-  lyricsEl.addEventListener('input', update);
-
-  // Pre-fill with example from preview.tex
-  melodyEl.value = '<-6---5zZ5T4x-:-4çz-5zZ5T4x-:-4---6----8--7i-8v---8--iI\\\\7-8o-iI7U6-6c--,-5Úop-9--9----8iI7-8--8oO8-6c---6c-:-6êiI7U6-5---5z-tT4-4-,-4--4i--8iI7-8--8oO8-6c---6c-,,-5o-oO8-9p-9-----9---iI\\\\7-8v-:-8--8iI7-8--8oO8-uU6-5z-6c-,,-6êiI7U6-5z--t\\\\T4-4i-iI7-8oO88-6c-.';
-  lyricsEl.value = 'San-ctus,  * san-ctus,    san-ctus Dó-mi-nus De-us  Sá-ba----oth. Ple-ni sunt cae--li et   ter-ra  gló-----ri--a  tu--a.  Ho-sán-na   in ex---cél-sis! Be-ne--dí-ctus, qui ve--nit in nó---mi-ne   Dó--mi-ni.  Ho------sán-na  in ex--cél---sis!';
+  // Pre-fill example
+  melodyEl.value = '<-6---5zZ5T4x-:-4çz-5zZ5T4x-:-4---6----8--7i-8v---8--iI\u005C7-8o-iI7U6-6c--,-5Úop-9--9----8iI7-8--8oO8-6c---6c-:-6êiI7U6-5---5z-tT4-4-,-4--4i--8iI7-8--8oO8-6c---6c-,,-5o-oO8-9p-9-----9---iI\u005C7-8v-:-8--8iI7-8--8oO8-uU6-5z-6c-,,-6êiI7U6-5z--t\u005CT4-4i-iI7-8oO88-6c-.';
   update();
 </script>
 </body>
