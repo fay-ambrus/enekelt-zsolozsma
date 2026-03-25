@@ -22,7 +22,7 @@ main.synctex.gz
 *.eps
 *.bbox
 *.ly
-tmp-ly/*
+out/tmp-ly/*
 
 ## Intermediate documents:
 *.dvi
