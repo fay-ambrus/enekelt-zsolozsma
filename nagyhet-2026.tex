@@ -24,6 +24,50 @@
 \commentary{Ezen a napon ünnepli az Egyház Krisztus Urunk Jeruzsálembe való bevonulását a húsvéti
 misztérium beteljesítésére.}
 
+\parttitle{Gyülekező ének}
+
+\begin{lilypond}
+\layout {
+  \context {
+    \Score
+    \omit BarNumber
+  }
+  \context {
+    \Staff
+    \omit TimeSignature
+  }
+}
+\relative {
+  \key d \major
+  a'4 b8( a8) g4 b4 | a4( g4) fis2 | a4 a8( g8) fis4 e4 | d2. r4 | \break
+  a'4 b8( a8) g4 b4 | a4( g4) fis2 | a4 a8( g8) fis4 e4 | d2. r4 | \break
+  e4 e4 a2 | g4 fis4 e2 | e4 a4 g4 fis4 | e2. r4 | \break
+  a4 b8( a8) g4 b4 | a4( g4) fis2 | a4 a8( g8) fis4 e4 | d2. r4 \fine
+}
+\addlyrics {
+  \override LyricText.font-name = #"Cambria"
+  \override LyricText.font-size = #0.1
+  Meg -- vál -- tó ki -- rá -- lyunk e -- lé -- be me -- gyünk,
+  mél -- tó tisz -- te -- let -- tel U -- runk -- hoz le -- gyünk!
+  Ho -- zsan -- nát ki -- ált -- son né -- ki min -- den hív,
+  di -- csé -- ret -- tel ál -- dást mond -- jon nyelv és szív!
+}
+\end{lilypond}
+
+\commentary{Dallamot lásd a gyülekező énknél.}
+
+\begin{hymnstanzas}
+  Így t\underline{i}sztelte J\underline{é}zust a zs\underline{i}dó nemzet,\\
+  vir\underline{á}gvasárn\underline{a}pján nagy gy\underline{ü}lekezet.\\
+  Elébe kimentek pálmaágakkal,\\
+  dics\underline{é}rő én\underline{e}kkel és v\underline{i}rágokkal.
+\stanzabreak
+  Hogy \underline{a} szent vár\underline{o}shoz már k\underline{ö}zelgetett,\\
+  és f\underline{é}nyes pomp\underline{á}val bév\underline{e}zettetett,\\
+  ruháját a népség földre teríté,\\
+  és \underline{ú}tját zöld \underline{á}ggal föl\underline{é}kesíté.
+\end{hymnstanzas}
+
 \subsection*{Körmenet}\markboth{Körmenet}{Virágvasárnap}
 
 \subsubsection*{I. stáció: Az ágak megáldása}
@@ -137,51 +181,29 @@ a Credo és az Egyetemes könyörgések.}
 
 \parttitle{Felajánlási ének}
 
-\begin{lilypond}
-\layout {
-  \context {
-    \Score
-    \omit BarNumber
-  }
-  \context {
-    \Staff
-    \omit TimeSignature
-  }
-}
-\relative {
-  \key d \major
-  a'4 b8( a8) g4 b4 | a4( g4) fis2 | a4 a8( g8) fis4 e4 | d2. r4 | \break
-  a'4 b8( a8) g4 b4 | a4( g4) fis2 | a4 a8( g8) fis4 e4 | d2. r4 | \break
-  e4 e4 a2 | g4 fis4 e2 | e4 a4 g4 fis4 | e2. r4 | \break
-  a4 b8( a8) g4 b4 | a4( g4) fis2 | a4 a8( g8) fis4 e4 | d2. r4 \fine
-}
-\addlyrics {
-  \override LyricText.font-name = #"Cambria"
-  \override LyricText.font-size = #0.1
-  Meg -- vál -- tó ki -- rá -- lyunk e -- lé -- be me -- gyünk,
-  mél -- tó tisz -- te -- let -- tel U -- runk -- hoz le -- gyünk!
-  Ho -- zsan -- nát ki -- ált -- son né -- ki min -- den hív,
-  di -- csé -- ret -- tel ál -- dást mond -- jon nyelv és szív!
-}
-\end{lilypond}
+\commentary{Dallamot lásd a gyülekező énknél.}
 
 \begin{hymnstanzas}
-  Így t\underline{i}sztelte J\underline{é}zust a zs\underline{i}dó nemzet,\\
-  vir\underline{á}gvasárn\underline{a}pján nagy gy\underline{ü}lekezet.\\
-  Elébe kimentek pálmaágakkal,\\
-  dics\underline{é}rő én\underline{e}kkel és v\underline{i}rágokkal.
-\stanzabreak
-  Hogy \underline{a} szent vár\underline{o}shoz már k\underline{ö}zelgetett,\\
-  és f\underline{é}nyes pomp\underline{á}val bév\underline{e}zettetett,\\
-  ruháját a népség földre teríté,\\
-  és \underline{ú}tját zöld \underline{á}ggal föl\underline{é}kesíté.
-\end{hymnstanzas}
-\centerstanza[0.5]{%
   És \underline{ö}rvendő sz\underline{í}vvel ki\underline{á}ltozának:\\
   Hozs\underline{á}nna, hozs\underline{á}nna Dáv\underline{i}d Fiának!\\
   Áldott az, ki az Úr szent nevében jön!\\
   Áldj\underline{á}k őt a h\underline{í}vek most \underline{é}s örökkön.
-}
+\stanzabreak
+  A gy\underline{e}rmekek k\underline{é}zbe pálm\underline{a}ágakat\\
+  vev\underline{é}n, dallal \underline{á}ldják szent k\underline{i}rályukat.\\
+  Ez az, ki népének jött váltságára,\\
+  mind\underline{e}n földi \underline{e}mber bold\underline{o}gságára.
+\stanzabreak
+  Ó \underline{I}sten Egyh\underline{á}za, Si\underline{o}n leánya,\\
+  ím j\underline{ő} mostan h\underline{o}zzád Ist\underline{e}n Báránya,\\
+  húsvéti bárányképp hozzánk látogat,\\
+  hogy \underline{é}rettünk l\underline{e}nne ég\underline{ő} áldozat.
+\stanzabreak
+  Áldás n\underline{é}ked, \underline{é}des Ist\underline{e}n Báránya,\\
+  ki j\underline{ö}ssz e vil\underline{á}gnak megv\underline{á}ltására,\\
+  dicsőség, dicséret, imádás legyen\\
+  nék\underline{e}d földön, \underline{é}gen, ör\underline{ö}kkön, amen.
+\end{hymnstanzas}
 
 \parttitle{Sanctus}
 
