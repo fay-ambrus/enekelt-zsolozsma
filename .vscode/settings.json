@@ -2,13 +2,10 @@
   "latex-workshop.latex.tools": [
     {
       "name": "lualatex",
-      "command": "lualatex",
+      "command": "cmd",
       "args": [
-        "--shell-escape",
-        "-interaction=nonstopmode",
-        "-synctex=1",
-        "-output-directory=%OUTDIR%",
-        "%DOC%"
+        "/c",
+        "set TEXINPUTS=%DIR%\\;%DIR%\\gregosheet\\;%DIR%\\gregosheet-psalm\\;&& set LUAINPUTS=%DIR%\\;%DIR%\\gregosheet\\;%DIR%\\gregosheet-psalm\\;&& cd /d %OUTDIR% && lualatex --shell-escape -interaction=nonstopmode -synctex=1 %DOC%"
       ]
     }
   ],
@@ -18,7 +15,6 @@
       "tools": ["lualatex"]
     }
   ],
-  "latex-workshop.latex.defaultRecipe": "LuaLaTeX",
   "latex-workshop.view.pdf.viewer": "tab",
   "latex-workshop.latex.autoBuild.run": "onSave",
   "latex-workshop.latex.outDir": "%DIR%/out"
