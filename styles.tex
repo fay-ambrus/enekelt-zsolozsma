@@ -167,4 +167,12 @@
   \par
 }
 
+\newcommand{\printsheet}[1]{%
+  \ifcsname sheet@#1\endcsname
+    \csname sheet@#1\endcsname
+  \else
+    \textbf{[Missing sheet: #1]}%
+  \fi
+}
+
 \usepackage{ragged2e}
