@@ -21,7 +21,6 @@ local function render_part(text, underline_indices, slash_idx)
     if syl == " " then
       tex.sprint(" ")
     elseif type(syl) == "table" and syl.type == "marker" then
-      -- Render ANT. in bold without affecting syllable count
       tex.sprint("\\textbf{")
       tex.sprint(-2, syl.text)
       tex.sprint("}")
@@ -61,7 +60,6 @@ local function render_part(text, underline_indices, slash_idx)
 end
 
 function gregosheet_psalm.render(sections_data, continuous, number, title, motto, numeral)
-  -- Render number if provided
   if number and number ~= "" then
     tex.sprint("\\par\\noindent\\centering")
     tex.sprint("\\fontsize{\\psalmfontsize}{12}\\selectfont\\psalmfont")
@@ -71,7 +69,6 @@ function gregosheet_psalm.render(sections_data, continuous, number, title, motto
     tex.sprint("\\vskip0.5\\blockvskip")
   end
 
-  -- Render title if provided
   if title and title ~= "" then
     tex.sprint("\\par\\noindent{\\centering")
     tex.sprint("\\fontsize{\\psalmfontsize}{12}\\selectfont\\psalmfont")
@@ -81,11 +78,9 @@ function gregosheet_psalm.render(sections_data, continuous, number, title, motto
     tex.sprint("\\vskip0.5\\blockvskip")
   end
 
-  -- Render motto if provided
   if motto and motto ~= "" then
     tex.sprint("\\par\\noindent\\raggedright")
     tex.sprint("\\fontsize{\\psalmfontsize}{12}\\selectfont\\psalmfont")
-    -- Find opening parenthesis
     local paren_pos = motto:find("%(")
     if paren_pos then
       local before_paren = motto:sub(1, paren_pos - 1)
@@ -99,17 +94,20 @@ function gregosheet_psalm.render(sections_data, continuous, number, title, motto
       tex.sprint(-2, motto)
       tex.sprint("}")
     end
-    tex.sprint("\\vskip\\blockvskip")
   end
 
-  -- Render numeral if provided
+  local pending_numeral = nil
   if numeral and numeral ~= "" then
-    tex.sprint("\\par\\noindent\\centering")
-    tex.sprint("\\fontsize{\\psalmfontsize}{12}\\selectfont\\psalmfont")
-    tex.sprint("\\textcolor{red}{")
-    tex.sprint(-2, numeral)
-    tex.sprint("}")
-    tex.sprint("\\vskip\\blockvskip")
+    if continuous then
+      pending_numeral = numeral
+    else
+      tex.sprint("\\par\\noindent\\centering")
+      tex.sprint("\\fontsize{\\psalmfontsize}{12}\\selectfont\\psalmfont")
+      tex.sprint("\\textcolor{red}{")
+      tex.sprint(-2, numeral)
+      tex.sprint("}")
+      tex.sprint("\\vskip\\blockvskip")
+    end
   end
 
   if continuous then
@@ -117,8 +115,17 @@ function gregosheet_psalm.render(sections_data, continuous, number, title, motto
     tex.sprint("\\fontsize{\\psalmfontsize}{12}\\selectfont\\psalmfont")
     tex.sprint("\\begin{justify}")
 
+    local first_verse = true
     for s_idx, section_info in ipairs(sections_data) do
       for i, verse_data in ipairs(section_info.section) do
+        if first_verse and pending_numeral then
+          tex.sprint("\\textbf{(")
+          tex.sprint(-2, pending_numeral)
+          tex.sprint(")} ")
+          pending_numeral = nil
+          first_verse = false
+        end
+
         if verse_data.number then
           tex.sprint("\\textbf{" .. verse_data.number .. ".} ")
         end
