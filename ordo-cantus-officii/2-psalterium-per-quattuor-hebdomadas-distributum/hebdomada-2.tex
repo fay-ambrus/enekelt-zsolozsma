@@ -172,7 +172,7 @@
 }
 
 % Benedictus
-\newcommand{\sheet@BenedictusDominus}{%
+\newcommand{\sheet@BenedictusDominusQuia}{%
   \begin{gregosheet}[tone=4. tónus]
     \melody{<-2--1----wW1-0---:-2----ed1-2--3--4t-5--:-tT4-3---4t--4----2---2-,,-5-5-4-5-4-2-.}
     \lyrics{  Ál-dott az  Úr, * mert meg-lá-to-ga-tott és  meg-vál-tott min-ket.}
@@ -370,6 +370,79 @@
 % ============================================================================
 
 % ············································································
+% Officium lectionis
+% ············································································
+
+% Hymnus
+% TODO
+
+% Antiphona 1
+\newcommand{\sheet@NeInIraTua}{%
+  \begin{gregosheet}[tone=8. dó tónus]
+    \melody{<-7---7-uU6-5---:-7--7---7----8--8---7-7-,,-7-7-5-7-8-7-.}
+    \lyrics{  Har-a-god-ban * ne bün-tess en-gem U-ram.}
+  \end{gregosheet}%
+}
+
+% Antiphona 2
+\newcommand{\sheet@ConfundanturEtRevereantrur}{%
+  \begin{gregosheet}[tone=2. tónus]
+    \melody{<-4---5---7---7--7i--8---:-7i-9---iI7-8--,-8-5---8---7---6--tT4-5--:-3r---5--7--5---5-,,-8-8-4t-5-.}
+    \lyrics{  Szé-gye-nül-je-nek meg * és fél-je--nek, a-kik lel-kem ke-re--sik, hogy el-ra-gad-ják.}
+  \end{gregosheet}%
+}
+
+% Antiphona 3
+\newcommand{\sheet@NeDerelinquasMe}{%
+  \begin{gregosheet}[tone=8. szó tónus]
+    \melody{<-4--4-----5--7--7---¨-7--7-7----7--7--7--7--:-7--7--zZ5--zZ5-4--4-,,-7-7-6-7-5-4-.}
+    \lyrics{  Ne hagyj el en-gem * én U-ram, én Is-te-nem, ne tá-vozz-el  tő-lem.}
+  \end{gregosheet}%
+}
+
+% ············································································
+% Laudes
+% ············································································
+
+% Hymnus
+% TODO
+
+% Antiphona 1
+\newcommand{\sheet@AmpliusLavaMe}{%
+  \begin{gregosheet}[tone=1. lá tónus]
+    \melody{<-0----1---3--2----1-qQ0--:-3---4---tT4-3--,-3----4----2---3--2--1--1-,,-5-5-4-3-rR3-1-.}
+    \lyrics{  Moss meg en-gem, U-ram, * tel-jes-ség-gel, tisz-títs meg bű-ne-im-től!}
+  \end{gregosheet}%
+}
+
+% Antiphona 2
+\newcommand{\sheet@DomineAudivi}{%
+  \begin{gregosheet}[tone=tonus irregularis]
+    \melody{<-2-1w---3---1---1---:-0-1--3---3--2---1--2---2-,,-2-2-3-1-3-2-.}
+    \lyrics{  U-ram, hal-lot-tam * a te sza-va-dat és fél-tem.}
+  \end{gregosheet}%
+}
+
+% Antiphona 3
+\newcommand{\sheet@Lauda}{%
+  \begin{gregosheet}[tone=tonus irregularis]
+    \melody{<-2--1------¨-1--0--1---2e---1--3-2-,,-2-2-3-1-3-2-.}
+    \lyrics{  Di-csérd, * Je-ru-zsá-lem, az U-rat!}
+  \end{gregosheet}%
+}
+
+% Responsorium breve
+\newcommand{\sheet@ClamaboAdDominumAltissimum}{%
+  \begin{gregosheet}
+    \melody{<X-¢-------------4---3---4--4t-5----,-£--------5--rR3-4---3--3-,,-5--5----5--5z-4--:-5--5---5---4--3---4t-5-,,-5--5---5---5--5-5z--5-:-5-5--4-4-:-5--5-4-----3--4t--tT4-.}
+    \lyrics{   A_fölséges_Is-ten-hez ki-ál-tok, * Aki_jóra vi-szi sor-so-mat. El-küld az ég-ből, és meg sza-ba-dít en-gem. Di-cső-ség az A-tyá-nak a Fi-ú-nak és a Szent-lé-lek-nek.}
+  \end{gregosheet}
+}
+
+%TODO
+% Benedictus
+
+% ············································································
 % Vesperas
 % ············································································
 
@@ -412,7 +485,12 @@
 % ············································································
 
 % Hymnus
-% TODO
+\newcommand{\sheet@LuxAeterna}{%
+  \begin{gregosheet}
+    \melody{<-3-4---4--1----3----4--4--3---:-6----5--4---5---3r--5--4--,-5-6---7----4---6--5---4---3-:-6-5-----4--3--5---zZ5-4--,-3---4---4---1--3---4--4---3-:-6--5----4---5---3r--5--4-.}
+    \lyrics{  Ö-rök su-gár, szép ve-rő-fény, fogy-ha-tat-lan nap-vi-lág, a gyá-szos éjt te győ-zöd le, a fényt új-ra meg-ho--zod, pok-lun-kat te rom-bo-lod le, el-ménk ben-ned föl-de-rül.}
+  \end{gregosheet}%
+}
 
 % Antiphona 1 (Extra tempus per annum)
 \newcommand{\sheet@VisitaNosDomine}{%
@@ -438,12 +516,41 @@
   \end{gregosheet}%
 }
 
+% Antiphona 1 (Tempore per annum)
+\newcommand{\sheet@ConfiteminiDomino}{%
+  \begin{gregosheet}[tone=3. tónus]
+    \melody{<-4--5--5---5u-6---5--4--tT4-:--2e---4t-2---2-,,-7-7-5u-5-4-.}
+    \lyrics{  Ad-ja-tok há-lát az Úr-nak, * mert jó hoz-zánk.}
+  \end{gregosheet}%
+}
+
+% Antiphona 2 (Tempore per annum)
+\newcommand{\sheet@Quoniam}{%
+  \begin{gregosheet}[tone=3. tónus]
+    \melody{<-7-uU6-tT4-5--4--:-4--4---4---rR3-4t-rR3-2--2-,,-7-7-5u-5-4-.}
+    \lyrics{  Ö-rök-ké--va-ló * ir-gal-mas-sá--ga az  Úr-nak.}
+  \end{gregosheet}%
+}
+
+% Antiphona 3 (Tempore per annum)
+\newcommand{\sheet@TuEsDeus}{%
+  \begin{gregosheet}[tone=1. ré tónus]
+    \melody{<-5--4----5--4--3----:-3--2---3r-eE2-1---0q--1-,,-5-5-4-3-rR3-4-.}
+    \lyrics{  Te vagy az Is-ten, * ki cso-dá-kat cse-lek-szel.}
+  \end{gregosheet}%
+}
+
 % ············································································
 % Laudes
 % ············································································
 
 % Hymnus
-% TODO
+\newcommand{\sheet@DieiLuceReddita}{%
+  \begin{gregosheet}
+    \melody{<-7-7---7----7--7---7---6--5---:-7----7---7---7--4--5-4--3---,-5--5----6---7--6---5----4--5zZ5-:-5-----5---4--3---4-----5--4--4-,,-4tT3-2\\e\\-.}
+    \lyrics{  A nap-fény új-ból fel-ra-gyog, csen-dül-jön há-la-é-ne-künk, di-csér-jük Is-ten nagy ne-vét,   Krisz-tus ke-gyel-mét, ér-de-mét. Á----men.}
+  \end{gregosheet}
+}
 
 % Antiphona 1
 \newcommand{\sheet@QuamMagnificataSunt}{%
@@ -467,6 +574,22 @@
     \melody{<-0----1---1tz-5--tT4-:-3-4--5--rR3-3r-4-:--3--4-eE2--1----1-,,-5-5-4-3-4t-4-.}
     \lyrics{  Mily cso-dá--la-tos * a te ne-ved U--runk az e-gész föld-ön.}
   \end{gregosheet}
+}
+
+% Responsorium breve
+\newcommand{\sheet@ExultabuntLabiaMea}{%
+  \begin{gregosheet}
+    \melody{<X-3--3---4--3---4t--tT4--,-4-4--4---5--rR3-4-3--3-,,-[-----------5z--4--:-[-----------4--3--4t--5--,,-5--5---5---5--5-5z--5-:-5-5--4-4-:-5--5-4-----3--4t--tT4-.}
+    \lyrics{   Aj-kam ör-ven-dez-zen, * A-mi-kor ne-ked é-ne-kel. Nyelvem_nap-hos-szat igazságodat em-le-ges-se!. Di-cső-ség az A-tyá-nak a Fi-ú-nak és a Szent-lé-lek-nek.}
+  \end{gregosheet}
+}
+
+% Benedictus
+\newcommand{\sheet@InViamPacis}{%
+  \begin{gregosheet}[tone=1. ré tónus]
+    \melody{<-3--3-5---rR3-4--4--5--:-3--2----4---eE2-1-1-,,-5-5-4-3-rR3-4-.}
+    \lyrics{  Az i-gaz-ság út-já-ra * ve-zess min-ket U-runk.}
+  \end{gregosheet}%
 }
 
 \makeatother
