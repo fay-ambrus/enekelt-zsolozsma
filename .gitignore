@@ -17,8 +17,6 @@ main.aux
 main.log
 main.synctex.gz
 
-*.pdf
-
 *.eps
 *.bbox
 *.ly
@@ -104,5 +102,4 @@ latex.out/
 *.bak
 *.sav
 
-!guidohu_kod_embed.pdf
 preview.tex
