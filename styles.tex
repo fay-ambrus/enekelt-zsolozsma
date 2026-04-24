@@ -74,6 +74,24 @@
   \par
 }
 
+% Subsubsubsection command
+\newcommand{\subsubsubsection}[1]{
+  \vskip\blockvskip
+  {\par\centering
+  \headingfont\fontsize{10}{12}\selectfont\bfseries
+  \MakeUppercase{#1}\par}%
+  \nopagebreak
+}
+
+% Subsubsubsubsection command
+\newcommand{\subsubsubsubsection}[1]{
+  \vskip\blockvskip
+  {\par\centering
+  \headingfont\fontsize{10}{12}\selectfont
+  #1\par}%
+  \nopagebreak
+}
+
 % Rubric command
 \newcommand{\rubric}[1]{
   \par\noindent
@@ -85,6 +103,7 @@
 \newcommand{\redtext}[1]{
   \par\noindent
   \textcolor{red}{#1}
+  \nopagebreak
   \par
 }
 

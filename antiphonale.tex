@@ -1,0 +1,61 @@
+\documentclass[twoside]{article}
+\usepackage[
+    a5paper,
+    margin=0.5in,
+    includehead,
+    headsep=4pt,
+    headheight=13pt
+]{geometry}
+\usepackage{gregosheet}
+\usepackage{gregosheet-psalm}
+\input{styles}
+\input{ordo-cantus-officii/1-proprium-de-tempore.tex}
+\input{ordo-cantus-officii/2-psalterium-per-quattuor-hebdomadas-distributum.tex}
+\input{ordo-cantus-officii/6-appendix.tex}
+
+\title{Antiphonale Hungaricum}
+\subtitle{2026. április}
+
+\begin{document}
+
+\maketitle
+
+\section*{I. Időszaki rész}
+    \subsection*{3. Nagyböjt}
+        \subsubsection*{a. Az ötödik hét szombatjáig}
+            \subsubsubsection{Minden nap}
+                \parttitle{Imádságra hívás}
+                    \printsheet{ChristumDominumProNobis}
+                \parttitle{Olvasmányos imaóra}
+                    \redtext{Himnusz (vasárnapi zsolozsmában)}
+                        \printsheet{ExMoreDoctiMystico}
+                    \redtext{Himnusz (Köznapi zsolozsmában)}
+                        \printsheet{ExMoreDoctiMystico}
+                \parttitle{Reggeli dicséret}
+                    \redtext{Himnusz (vasárnapi zsolozsmában)}
+                        \printsheet{PrecemurOmnesCernui}
+                    \redtext{Himnusz (köznapi zsolozsmában)}
+                        \printsheet{IamChristeSolIustitiae}
+                    \redtext{Rövid válaszos ének (vasárnapi zsolozsmában)}
+                        \printsheet{ChristeFiliDeiVivi}
+                    \redtext{Rövid válaszos ének (köznapi zsolozsmában)}
+                        \printsheet{IpseLiberabitMe}
+                \parttitle{Napközi imaóra}
+                    \redtext{Himnusz (délben)}
+                        \printsheet{QuaChristus}
+                    \redtext{Antifóna (délben)}
+                        \printsheet{VivoEgoDicitDominus}
+                \parttitle{Esti dicséret}
+                    \redtext{Himnusz (vasárnapi zsolozsmában)}
+                        \printsheet{AudiBenigneConditor}
+                    \redtext{Himnusz (köznapi zsolozsmában)}
+                        \printsheet{IesuQuadragenariae}
+                    \redtext{Rövid válaszos ének (köznapi zsolozsmában)}
+                        \printsheet{EgoDixi}
+            \subsubsubsection{Nagyböjt II. hete}
+                \parttitle{Péntek}
+                    \redtext{Magnificat}
+                        \printsheet{QuaerentesEumTenere}
+
+
+\end{document}
