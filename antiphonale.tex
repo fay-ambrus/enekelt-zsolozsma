@@ -14,7 +14,7 @@
 \input{ordo-cantus-officii/6-appendix.tex}
 
 \title{Antiphonale Hungaricum}
-\subtitle{2026. április}
+\subtitle{\the\year. \the\month.}
 
 \begin{document}
 
@@ -30,7 +30,7 @@
                     \redtext{Himnusz (vasárnapi zsolozsmában)}
                         \printsheet{ExMoreDoctiMystico}
                     \redtext{Himnusz (Köznapi zsolozsmában)}
-                        \printsheet{ExMoreDoctiMystico}
+                        \printsheet{NuncTempusAcceptabile}
                 \parttitle{Reggeli dicséret}
                     \redtext{Himnusz (vasárnapi zsolozsmában)}
                         \printsheet{PrecemurOmnesCernui}
@@ -92,7 +92,7 @@
             \subsubsubsection{Nagyszombat}
                 \parttitle{Befejező imaóra}
                     \redtext{Antifóna a rövid válaszos ének helyett}
-                        \printsheet{HaecDies}                        
+                        \printsheet{HaecDies}
     \subsection*{5. Évközi idő}
         \subsubsection*{a. Vasánapokon}
             \subsubsubsection{Reggeli dicséret és II. Esti dicséret}
@@ -116,11 +116,14 @@
             \parttitle{Olvasmányos imaóra}
                 \redtext{Himnusz}
                     \rubric{Amikor az imaórát éjszaka vagy kora hajnalban mondják:}
+                    \label{I/D/OL/Hymn}
                     \printsheet{PrimoDierumOmnium}
             \parttitle{Reggeli dicséret}
                 \redtext{Himnusz}
+                    \label{I/D/L/Hymn}
                     \printsheet{AeterneRerumConditor}
                 \redtext{Rövid válaszos ének}
+                    \label{I/D/L/RespBrev}
                     \printsheet{ChristiFiliDeiVivi}
             \parttitle{Napközi imaóra}
                 \redtext{1. antifóna}
@@ -134,8 +137,10 @@
                 \printsheet{IubilemusDeo}
             \parttitle{Reggeli dicséret}
                 \redtext{Rövid válaszos ének}
+                    \label{I/D/fe2/RespBrev}
                     \printsheet{BenedictusDominusASaeculo}
                 \redtext{Benedictus}
+                    \label{I/D/fe2/B}
                     \printsheet{BenedictusDominusDeus}
             \parttitle{Napközi imaóra}
                 \redtext{1. antifóna}
@@ -182,6 +187,7 @@
         \subsubsection*{Vasárnap}
             \parttitle{Olvasmányos imaóra}
                 \redtext{Himnusz}
+                    \rubric{Amikor az imaórát éjszaka vagy kora hajnalban mondják:}
                     \printsheet{MediaeNoctis}
                 \redtext{1. antifóna}
                     \printsheet{Confessionem}
@@ -203,6 +209,7 @@
         \subsection*{Hétfő}
             \parttitle{Olvasmányos imaóra}
                 \redtext{Himnusz}
+                    \rubric{Amikor az imaórát éjszaka vagy kora hajnalban mondják:}
                     \printsheet{IpsumNuncNobis}
                 \redtext{1. antifóna}
                     \printsheet{InTuaIustitia}
@@ -226,6 +233,7 @@
         \subsection*{Kedd}
             \parttitle{Olvasmányos imaóra}
                 \redtext{Himnusz}
+                    \rubric{Amikor az imaórát éjszaka vagy kora hajnalban mondják:}
                     \printsheet{NocteSurgentes}
                 \redtext{1. antifóna}
                     \printsheet{Revela}
@@ -249,6 +257,7 @@
         \subsection*{Szerda}
             \parttitle{Olvasmányos imaóra}
                 \redtext{Himnusz}
+                    \rubric{Amikor az imaórát éjszaka vagy kora hajnalban mondják:}
                     \printsheet{OSatorRerum}
                 \redtext{1. antifóna}
                     \printsheet{UtNonDelinquam}
@@ -269,4 +278,126 @@
                     \printsheet{BenedicamDominum}
                 \redtext{Benedictus}
                     \printsheet{Liberati}
+        \subsection*{Csütörtök}
+            \parttitle{Olvasmányos imaóra}
+                \redtext{Himnusz}
+                    \rubric{Amikor az imaórát éjszaka vagy kora hajnalban mondják:}
+                    \printsheet{AlesDieiNuntius}
+                \redtext{1. antifóna}
+                    \printsheet{Extende}
+                \redtext{2. antifóna}
+                    \printsheet{Confundantur}
+                \redtext{3. antifóna}
+                    \printsheet{MementoDomine}
+            \parttitle{Reggeli dicséret}
+                \redtext{Himnusz}
+                    \printsheet{IamLucisOrto}
+                \redtext{1. antifóna}
+                    \printsheet{TuamDomine}
+                \redtext{2. antifóna}
+                    \printsheet{ConversusEst}
+                \redtext{3. antifóna}
+                    \printsheet{ExsultateDeo}
+                \redtext{Rövid válaszos ének}
+                    \printsheet{InMatutinisDomine}
+                \redtext{Benedictus}
+                    \printsheet{DaScientiam}
+        \subsection*{Péntek}
+            \parttitle{Olvasmányos imaóra}
+                \redtext{Himnusz}
+                    \rubric{Amikor az imaórát éjszaka vagy kora hajnalban mondják:}
+                    \printsheet{GalliCantu}
+                \redtext{1. antifóna}
+                    \printsheet{NeInIraTua}
+                \redtext{2. antifóna}
+                    \printsheet{ConfundanturEtRevereantrur}
+                \redtext{3. antifóna}
+                    \printsheet{NeDerelinquasMe}
+            \parttitle{Reggeli dicséret}
+                \redtext{1. antifóna}
+                    \printsheet{AmpliusLavaMe}
+                \redtext{2. antifóna}
+                    \printsheet{DomineAudivi}
+                \redtext{3. antifóna}
+                    \printsheet{Lauda}
+                \redtext{Rövid válaszos ének}
+                    \printsheet{ClamaboAdDominumAltissimum}
+            \parttitle{Esti dicséret}
+                \redtext{1. antifóna}
+                    \printsheet{InclinavitDominus}
+                \redtext{2. antifóna}
+                    \printsheet{AuxiliumMeum}
+                \redtext{3. antifóna}
+                    \printsheet{InConsilioIustorum}
+        \subsection*{Szombat}
+            \parttitle{Olvasmányos imaóra}
+                \redtext{Himnusz}
+                    \rubric{Amikor az imaórát éjszaka vagy kora hajnalban mondják:}
+                    \printsheet{LuxAeterna}
+                \redtext{1. antifóna (az Évközi időn kívül)}
+                    \printsheet{VisitaNosDomine}
+                \redtext{2. antifóna (az Évközi időn kívül)}
+                    \printsheet{OblitiSuntDeum}
+                \redtext{3. antifóna (az Évközi időn kívül)}
+                    \printsheet{SalvosNosFacDomine}
+                \redtext{1. antifóna (az Évközi időnben)}
+                    \printsheet{ConfiteminiDomino}
+                \redtext{2. antifóna (az Évközi időnben)}
+                    \printsheet{Quoniam}
+                \redtext{3. antifóna (az Évközi időnben)}
+                    \printsheet{TuEsDeus}
+            \parttitle{Reggeli dicséret}
+                \redtext{Himnusz}
+                    \printsheet{DieiLuceReddita}
+                \redtext{1. antifóna}
+                    \printsheet{QuamMagnificataSunt}
+                \redtext{2. antifóna}
+                    \printsheet{DateMagnitudinem}
+                \redtext{3. antifóna}
+                    \printsheet{QuamAdmirabileEst}
+                \redtext{Rövid válaszos ének}
+                    \printsheet{ExultabuntLabiaMea}
+                \redtext{Benedictus}
+                    \printsheet{InViamPacis}
+    \subsection*{III. hét}
+        \subsubsection*{Vasárnap}
+            \parttitle{Olvasmányos imaóra}
+                \redtext{Himnusz}
+                    \rubric{Mint az I. héten, \pageref{I/D/OL/Hymn}.}
+                \redtext{1. antifóna}
+                    \printsheet{EcceDeusMeus}
+                \redtext{2. antifóna}
+                    \printsheet{RegnumTuumDomine}
+                \redtext{3. antifóna}
+                    \printsheet{InAeternum}
+            \parttitle{Reggeli dicséret}
+                \redtext{Himnusz}
+                    \rubric{Mint az I. héten, \pageref{I/D/L/Hymn}.}
+                \redtext{1. antifóna}
+                    \printsheet{RegnavitDominusDecorem}
+                \redtext{2. antifóna}
+                    \printsheet{Benedicite}
+                \redtext{3. antifóna}
+                    \printsheet{Laudate}
+                \redtext{Rövid válaszos ének}
+                    \rubric{Mint az I. héten, \pageref{I/D/L/RespBrev}.}
+        \subsubsection*{Hétfő}
+            \parttitle{Olvasmányos imaóra}
+                \redtext{1. antifóna}
+                    \printsheet{DeusDeorum}
+                \redtext{2. antifóna}
+                    \printsheet{ImmolaDeo}
+                \redtext{3. antifóna}
+                    \printsheet{DixiIniquis}
+            \parttitle{Reggeli dicséret}
+                \redtext{1. antifóna}
+                    \printsheet{BeatiQuiHabitant}
+                \redtext{2. antifóna}
+                    \printsheet{Venite}
+                \redtext{3. antifóna}
+                    \printsheet{CantateDomino}
+                \redtext{Rövid válaszos ének}
+                    \rubric{Mint az I. héten, \pageref{I/D/fe2/RespBrev}.}
+                \redtext{Benedictus}
+                    \rubric{Mint az I. héten, \pageref{I/D/fe2/B}.}
 \end{document}
