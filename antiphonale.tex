@@ -27,23 +27,21 @@
     \subsection*{3. Nagyböjt}
         \subsubsection*{a. Az ötödik hét szombatjáig}
             \subsubsubsection{Minden nap}
-                \parttitle{Imádságra hívás}
-                    \printsheet{ChristumDominumProNobis}
-                \parttitle{Reggeli dicséret}
-                    \redtext{Himnusz (vasárnapi zsolozsmában)}
-                        \printsheet{PrecemurOmnesCernui}
-                    \redtext{Himnusz (köznapi zsolozsmában)}
-                        \printsheet{IamChristeSolIustitiae}
-                    \redtext{Rövid válaszos ének (vasárnapi zsolozsmában)}
-                        \printsheet{ChristeFiliDeiVivi}
-                    \redtext{Rövid válaszos ének (köznapi zsolozsmában)}
-                        \printsheet{IpseLiberabitMe}
-                \parttitle{Napközi imaóra}
-                    \redtext{Antifóna (délben)}
-                        \printsheet{VivoEgoDicitDominus}
-                \parttitle{Esti dicséret}
-                    \redtext{Rövid válaszos ének (köznapi zsolozsmában)}
-                        \printsheet{EgoDixi}
+                \begin{gregosheet}
+                    \addsheet[title={Imádságra hívás}]{ChristumDominumProNobis}
+                    \addtext{Himn._(vas.)}
+                    \addsheet[title={Reggeli dicséret}]{PrecemurOmnesCernui}
+                    \addtext{Himn._(köznap)}
+                    \addsheet{IamChristeSolIustitiae}
+                    \addtext{Vál._én._(vas.)}
+                    \addsheet{ChristeFiliDeiVivi}
+                    \addtext{Vál._én._(köznap)}
+                    \addsheet{IpseLiberabitMe}
+                    \addtext{Ant._(dél)}
+                    \addsheet[title={Napközi imaóra}]{VivoEgoDicitDominus}
+                    \addtext{Vál._én._(köznap)}
+                    \addsheet[title={Esti dicséret}]{EgoDixi}
+                \end{gregosheet}
             \subsubsubsection{Nagyböjt II. hete}
                 \subsubsubsubsection{Péntek}
                     \parttitle{Esti dicséret}
