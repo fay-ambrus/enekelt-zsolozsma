@@ -1,0 +1,115 @@
+%% 
+  % Prerequisites:
+  % - Node.js and npm installed on your system.
+  % - npm install @aretino-chant/cli (this will install aretino to your home at ~/node_modules/.bin/aretino)
+  % - sudo apt install librsvg2-bin
+  % - Used textFont (Cambria here) must be available for the system in fontkit-compatible format (e.g ttf)
+  %
+  % To compile the document, run the following command in the terminal:
+  %
+  %   lyluatex --shell-escape arentino-test.tex
+  %
+  % This will generate a PDF file named arentino-test.pdf in the same directory.
+  % 
+  % More information about Aretino Latex package can be found 
+  % at https://github.com/aretino-chant/aretino-chant/tree/main/latex
+%%
+
+\documentclass[twoside]{article}
+\usepackage[
+  a5paper,
+  margin=0.5in,
+  includehead,
+  headsep=4pt,
+  headheight=13pt
+]{geometry}
+\usepackage{gregosheet}
+\usepackage{gregosheet-psalm}
+\usepackage{lyluatex}
+\usepackage{xcolor}
+\usepackage{aretino}
+
+\aretinosetup {
+    cli = ~/node_modules/.bin/aretino,
+    text-font = Cambria,
+    width-mm = 125,
+    lyric-size = 10
+}
+
+\input{styles}
+
+\title{Nagyhét}
+\subtitle{A szentendrei ferences kápolna énekrendje - A.D. 2026}
+
+\begin{document}
+
+\section*{Virágvasárnap}\markright{Virágvasárnap}
+
+\rubric{Ezen a napon ünnepli az Egyház Krisztus Urunk Jeruzsálembe való bevonulását a húsvéti
+misztérium beteljesítésére.}
+
+\parttitle{Gyülekező ének}
+
+\begin{lilypond}
+\layout {
+  \context {
+    \Score
+    \omit BarNumber
+  }
+  \context {
+    \Staff
+    \omit TimeSignature
+  }
+}
+\relative {
+  \key d \major
+  a'4 b8( a8) g4 b4 | a4( g4) fis2 | a4 a8( g8) fis4 e4 | d2. r4 | \break
+  a'4 b8( a8) g4 b4 | a4( g4) fis2 | a4 a8( g8) fis4 e4 | d2. r4 | \break
+  e4 e4 a2 | g4 fis4 e2 | e4 a4 g4 fis4 | e2. r4 | \break
+  a4 b8( a8) g4 b4 | a4( g4) fis2 | a4 a8( g8) fis4 e4 | d2. r4 \fine
+}
+\addlyrics {
+  \override LyricText.font-name = #"Cambria"
+  \override LyricText.font-size = #0.1
+  Meg -- vál -- tó ki -- rá -- lyunk e -- lé -- be me -- gyünk,
+  mél -- tó tisz -- te -- let -- tel U -- runk -- hoz le -- gyünk!
+  Ho -- zsan -- nát ki -- ált -- son né -- ki min -- den hív,
+  di -- csé -- ret -- tel ál -- dást mond -- jon nyelv és szív!
+}
+\end{lilypond}
+
+\rubric{Dallamot lásd a gyülekező énknél.}
+
+\begin{hymnstanzas}
+  Így t\underline{i}sztelte J\underline{é}zust a zs\underline{i}dó nemzet,\\
+  vir\underline{á}gvasárn\underline{a}pján nagy gy\underline{ü}lekezet.\\
+  Elébe kimentek pálmaágakkal,\\
+  dics\underline{é}rő én\underline{e}kkel és v\underline{i}rágokkal.
+\stanzabreak
+  Hogy \underline{a} szent vár\underline{o}shoz már k\underline{ö}zelgetett,\\
+  és f\underline{é}nyes pomp\underline{á}val bév\underline{e}zettetett,\\
+  ruháját a népség földre teríté,\\
+  és \underline{ú}tját zöld \underline{á}ggal föl\underline{é}kesíté.
+\end{hymnstanzas}
+
+\subsection*{Körmenet}\markboth{Körmenet}{Virágvasárnap}
+
+\subsubsection*{I. stáció: Az ágak megáldása}
+
+
+\rubric{A pap és a segédkezők már a szentmiséhez felöltözve a kápolna végébe
+vonulnak. Eközben énekeljük:}
+
+\parttitle[Hosanna Filio David]{Antifóna}
+
+\begin{aretino}[per-line]
+(g2) (K:F#) d dA A , A f g AB A , ABA g , g g g g g e f d |
+c e g g g gA gf , d dA A. g e f d d ||
+w: Ho-zsan-na (*) Dá-vid Fi-á-nak, ál-dott, a-ki az Úr ne-vé-ben jő,
+Iz-ra-el-nek Ki-rá-lya, Ho-zsan-na a ma-gas-ság-ban.
+
+f g At g A B gs g | At B A g gs gf e |||
+W: \red{7. lá tónus}
+\end{aretino}
+
+\end{document}
