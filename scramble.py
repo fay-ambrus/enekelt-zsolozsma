@@ -19,7 +19,7 @@ for input_file in files:
         block = list(range(i, min(i + 4, n)))
 
         if len(block) == 4:
-            order = [block[0], block[2], block[3], block[1]]
+            order = [block[3], block[0], block[1], block[2]]
         else:
             order = block
 

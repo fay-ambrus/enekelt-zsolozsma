@@ -25,10 +25,10 @@
     }
   ],
   "latex-workshop.latex.recipes": [
-    {
-      "name": "LuaLaTeX (macOS/Linux)",
-      "tools": ["lualatex-unix"]
-    },
+    //{
+    //  "name": "LuaLaTeX (macOS/Linux)",
+    //  "tools": ["lualatex-unix"]
+    //},
     {
       "name": "LuaLaTeX (Windows)",
       "tools": ["lualatex-win"]
