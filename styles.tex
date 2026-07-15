@@ -75,6 +75,17 @@
   \par
 }
 
+% Black title command
+\newcommand{\blacktitle}[2][]{
+  \vskip\blockvskip
+  \par\noindent
+  \headingfont\fontsize{10}{12}\selectfont
+  \textbf{\MakeUppercase{#2}}%
+  \ifx&#1&\else\hfill#1\fi
+  \nopagebreak
+  \par
+}
+
 % Subsubsubsection command
 \newcommand{\subsubsubsection}[1]{
   \vskip\blockvskip
