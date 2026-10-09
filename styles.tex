@@ -31,14 +31,18 @@
 \raggedbottom
 
 % Title style
+\newcommand{\titleornamenttop}{}
+\newcommand{\titleornamentbottom}{}
 \makeatletter
 \renewcommand{\maketitle}{
   \begin{titlepage}
     \centering
     \vspace*{\fill}
+    \titleornamenttop
     {\headingfont\fontsize{32}{38}\selectfont\bfseries\MakeUppercase{\@title}\par}
     \vskip 2em
     {\headingfont\fontsize{16}{20}\selectfont\MakeUppercase{\@subtitle}\par}
+    \titleornamentbottom
     \vspace*{\fill}
   \end{titlepage}
 }
