@@ -8,9 +8,9 @@ and compared by rendering them and hashing the result. A page counts as changed
 whenever it looks different, is brand new, or carries the title page.
 
 Changed pages are then grown to whole four page sheets, matching the folded
-sheets the physical copy is bound from, and imposed in the same order as
-``scramble.py`` so the output can be printed two-up, duplex, flip on the short
-edge, then folded.
+sheets the physical copy is bound from, and imposed exactly as ``scramble.py``
+would, so the output can be printed two-up, duplex, flip on the short edge,
+then folded.
 
     python3 reprint.py ah-26-09 ah-26-10
     python3 reprint.py ah-26-09 HEAD --list
@@ -31,7 +31,9 @@ import tempfile
 from dataclasses import dataclass
 
 import fitz
-from pypdf import PdfReader, PdfWriter
+from pypdf import PageObject, PdfReader, PdfWriter
+
+from scramble import blank_size
 
 DOCUMENT = "out/antiphonale-hungaricum.pdf"
 HEADER_HEIGHT = 40.0
@@ -121,16 +123,21 @@ def changed_pages(old: list[Page], new: list[Page],
     return changed, [page for page in old if page.key not in current]
 
 
-def sheets_of(pages: list[Page], total: int, unit: int) -> list[list[int]]:
-    """Whole sheets covering ``pages``, as lists of physical page indices."""
+def sheets_of(pages: list[Page], total: int, unit: int) -> list[list[int | None]]:
+    """Whole sheets covering ``pages``, as physical page indices.
+
+    A sheet always has ``unit`` slots; ``None`` marks a slot past the end of the
+    document, which is printed as a blank so the sheet still folds.
+    """
     wanted = sorted({page.index // unit for page in pages})
-    return [[i for i in range(first * unit, min((first + 1) * unit, total))]
+    return [[i if i < total else None
+             for i in range(first * unit, (first + 1) * unit)]
             for first in wanted]
 
 
-def impose(sheet: list[int], unit: int) -> list[int]:
+def impose(sheet: list[int | None], unit: int) -> list[int | None]:
     """Reorder one sheet for folding, as ``scramble.py`` does."""
-    if unit == 4 and len(sheet) == 4:
+    if unit == 4:
         return [sheet[3], sheet[0], sheet[1], sheet[2]]
     return sheet
 
@@ -150,12 +157,13 @@ def ranges(labels: list[str]) -> str:
     return ", ".join(out)
 
 
-def summarise(changed: list[Page], sheets: list[list[int]],
+def summarise(changed: list[Page], sheets: list[list[int | None]],
               new: list[Page]) -> None:
     """Report the changed pages and the sheets they drag along, per part."""
     by_index = {page.index: page for page in new}
     for part in sorted({page.part for page in changed}):
-        mine = [sheet for sheet in sheets if by_index[sheet[0]].part == part]
+        mine = [[i for i in sheet if i is not None] for sheet in sheets]
+        mine = [sheet for sheet in mine if by_index[sheet[0]].part == part]
         edges = [f"{by_index[sheet[0]].label}-{by_index[sheet[-1]].label}"
                  for sheet in mine]
         marked = [page.label for page in changed if page.part == part]
@@ -195,9 +203,14 @@ def process(repo: str, old_ref: str, new_ref: str,
             handle.write(new_data)
         reader = PdfReader(source)
         writer = PdfWriter()
+        width, height = blank_size(reader)
         for sheet in sheets:
             for i in (sheet if args.no_impose else impose(sheet, args.unit)):
-                writer.add_page(reader.pages[i])
+                if i is None:
+                    writer.add_page(
+                        PageObject.create_blank_page(width=width, height=height))
+                else:
+                    writer.add_page(reader.pages[i])
         base, ext = os.path.splitext(os.path.basename(args.document))
         stamp = re.sub(r"[^\w.-]", "-", new_ref)
         out = args.output or os.path.join(
