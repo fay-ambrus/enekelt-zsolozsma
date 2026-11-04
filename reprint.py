@@ -7,10 +7,15 @@ in every part of the book, so a part counter is reconstructed from the resets --
 and compared by rendering them and hashing the result. A page counts as changed
 whenever it looks different, is brand new, or carries the title page.
 
-Changed pages are then grown to whole four page sheets, matching the folded
-sheets the physical copy is bound from, and imposed exactly as ``scramble.py``
-would, so the output can be printed two-up, duplex, flip on the short edge,
-then folded.
+Changed pages are then grown to whole leaves -- a recto plus the verso printed
+on its back -- which is the smallest piece of paper that can be swapped into a
+copy whose A4 sheets were cut in half rather than folded. Two leaves share one
+A4 and need not be neighbours in the book, so a single changed page costs two
+pages of paper instead of four. Print two-up, duplex, flip on the short edge,
+then cut down the middle.
+
+Pass ``--fold`` for a copy that is folded instead of cut; changed pages then
+grow to whole four page gatherings, imposed exactly as ``scramble.py`` would.
 
     python3 reprint.py ah-26-09 ah-26-10
     python3 reprint.py ah-26-09 HEAD --list
@@ -33,7 +38,7 @@ from dataclasses import dataclass
 import fitz
 from pypdf import PageObject, PdfReader, PdfWriter
 
-from scramble import blank_size
+from scramble import blank_size, folding_order
 
 DOCUMENT = "out/antiphonale-hungaricum.pdf"
 HEADER_HEIGHT = 40.0
@@ -124,10 +129,10 @@ def changed_pages(old: list[Page], new: list[Page],
 
 
 def sheets_of(pages: list[Page], total: int, unit: int) -> list[list[int | None]]:
-    """Whole sheets covering ``pages``, as physical page indices.
+    """Whole gatherings covering ``pages``, as physical page indices.
 
-    A sheet always has ``unit`` slots; ``None`` marks a slot past the end of the
-    document, which is printed as a blank so the sheet still folds.
+    A gathering always has ``unit`` slots; ``None`` marks a slot past the end of
+    the document, which is printed as a blank so the sheet still folds.
     """
     wanted = sorted({page.index // unit for page in pages})
     return [[i if i < total else None
@@ -136,10 +141,36 @@ def sheets_of(pages: list[Page], total: int, unit: int) -> list[list[int | None]
 
 
 def impose(sheet: list[int | None], unit: int) -> list[int | None]:
-    """Reorder one sheet for folding, as ``scramble.py`` does."""
-    if unit == 4:
-        return [sheet[3], sheet[0], sheet[1], sheet[2]]
-    return sheet
+    """Reorder one gathering for folding, as ``scramble.py`` does."""
+    return [sheet[i] for i in folding_order(unit, unit)]
+
+
+def leaf_slots(leaf: int | None, total: int) -> tuple[int | None, int | None]:
+    """The recto and verso of a leaf, ``None`` where the document has ended."""
+    if leaf is None:
+        return None, None
+    recto, verso = 2 * leaf, 2 * leaf + 1
+    return (recto if recto < total else None,
+            verso if verso < total else None)
+
+
+def cut_sheets(leaves: list[int], total: int,
+               folding: bool) -> list[list[int | None]]:
+    """A4 sheets carrying two leaves each, for a copy that is cut in half.
+
+    Under a short edge duplex flip the left half of the front backs onto the
+    right half of the reverse, so an A4 reads left recto, right recto, right
+    verso, left verso. Cut it down the middle and both leaves come out the right
+    way round, whether or not they sit together in the book.
+    """
+    sheets = []
+    for first in range(0, len(leaves), 2):
+        pair = leaves[first:first + 2]
+        left = leaf_slots(pair[0], total)
+        right = leaf_slots(pair[1] if len(pair) > 1 else None, total)
+        sheets.append([left[0], right[0], right[1], left[1]] if folding
+                      else [left[0], left[1], right[0], right[1]])
+    return sheets
 
 
 def ranges(labels: list[str]) -> str:
@@ -157,20 +188,14 @@ def ranges(labels: list[str]) -> str:
     return ", ".join(out)
 
 
-def summarise(changed: list[Page], sheets: list[list[int | None]],
-              new: list[Page]) -> None:
-    """Report the changed pages and the sheets they drag along, per part."""
-    by_index = {page.index: page for page in new}
+def summarise(changed: list[Page], size: int, noun: str) -> None:
+    """Report the changed pages per part, and the units of paper they need."""
     for part in sorted({page.part for page in changed}):
-        mine = [[i for i in sheet if i is not None] for sheet in sheets]
-        mine = [sheet for sheet in mine if by_index[sheet[0]].part == part]
-        edges = [f"{by_index[sheet[0]].label}-{by_index[sheet[-1]].label}"
-                 for sheet in mine]
-        marked = [page.label for page in changed if page.part == part]
-        print(f"  part {ROMAN[part]:<4} {len(marked):3} changed page(s), "
-              f"{len(mine):3} sheet(s)")
-        print(f"    changed: {ranges(marked)}")
-        print(f"    sheets:  {', '.join(edges)}")
+        mine = [page for page in changed if page.part == part]
+        units = len({page.index // size for page in mine})
+        print(f"  part {ROMAN[part]:<4} {len(mine):3} changed page(s), "
+              f"{units:3} {noun}")
+        print(f"    changed: {ranges([page.label for page in mine])}")
 
 
 def process(repo: str, old_ref: str, new_ref: str,
@@ -180,17 +205,29 @@ def process(repo: str, old_ref: str, new_ref: str,
     new = index_revision(new_data, args.dpi)
 
     changed, removed = changed_pages(old, new, not args.no_title)
-    sheets = sheets_of(changed, len(new), args.unit)
 
     print(f"{args.document}: {old_ref} ({len(old)} pages) "
           f"-> {new_ref} ({len(new)} pages)")
     if not changed:
         print("  nothing changed, no sheets to print")
         return 0
-    summarise(changed, sheets, new)
+
+    if args.fold:
+        size, noun = args.unit, "gathering(s)"
+        sheets = sheets_of(changed, len(new), args.unit)
+        if not args.no_impose:
+            sheets = [impose(sheet, args.unit) for sheet in sheets]
+        units = len(sheets)
+    else:
+        size, noun = 2, "leaf/leaves"
+        leaves = sorted({page.index // 2 for page in changed})
+        sheets = cut_sheets(leaves, len(new), not args.no_impose)
+        units = len(leaves)
+
+    summarise(changed, size, noun)
     pages = sum(len(sheet) for sheet in sheets)
-    print(f"  {len(changed)} changed page(s) -> {len(sheets)} sheet(s) "
-          f"= {pages} page(s) to print")
+    print(f"  {len(changed)} changed page(s) -> {units} {noun} "
+          f"-> {len(sheets)} sheet(s) = {pages} page(s) to print")
     if removed:
         print(f"  gone from {new_ref}: "
               f"{', '.join(str(page) for page in removed)}")
@@ -205,7 +242,7 @@ def process(repo: str, old_ref: str, new_ref: str,
         writer = PdfWriter()
         width, height = blank_size(reader)
         for sheet in sheets:
-            for i in (sheet if args.no_impose else impose(sheet, args.unit)):
+            for i in sheet:
                 if i is None:
                     writer.add_page(
                         PageObject.create_blank_page(width=width, height=height))
@@ -218,7 +255,9 @@ def process(repo: str, old_ref: str, new_ref: str,
         os.makedirs(os.path.dirname(out) or ".", exist_ok=True)
         with open(out, "wb") as handle:
             writer.write(handle)
-    kind = "in document order" if args.no_impose else "imposed for folding"
+    kind = ("in document order" if args.no_impose
+            else "imposed for folding" if args.fold
+            else "imposed for cutting in half")
     print(f"  wrote {out} ({len(writer.pages)} pages, {kind})")
     return 0
 
@@ -234,20 +273,26 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("-o", "--output", metavar="PDF", help="output file")
     parser.add_argument("-C", "--repo", default=".", metavar="DIR",
                         help="repository to read (default: current directory)")
+    parser.add_argument("-f", "--fold", action="store_true",
+                        help="the copy is folded, not cut: grow changes to "
+                             "whole gatherings and impose for folding")
     parser.add_argument("-u", "--unit", type=int, default=4, metavar="N",
-                        help="pages per sheet (default: 4)")
+                        help="pages per gathering with --fold (default: 4)")
     parser.add_argument("--dpi", type=int, default=150,
                         help="resolution pages are compared at (default: 150)")
     parser.add_argument("-l", "--list", action="store_true",
                         help="only report, do not write a PDF")
     parser.add_argument("--no-impose", action="store_true",
-                        help="keep document order instead of folding order")
+                        help="keep document order instead of printing order")
     parser.add_argument("--no-title", action="store_true",
                         help="reprint the title page only if it changed")
     args = parser.parse_args(argv)
 
     if args.unit < 1:
         parser.error("--unit must be positive")
+    if args.fold and args.unit % 4 and not args.no_impose:
+        parser.error("--unit must be a multiple of 4 to impose for folding; "
+                     "pass --no-impose to keep document order")
     try:
         return process(args.repo, args.old, args.new, args)
     except (OSError, ValueError) as error:
