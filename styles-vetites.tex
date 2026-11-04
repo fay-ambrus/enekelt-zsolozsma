@@ -17,6 +17,41 @@
 \newcommand{\lyricvskip}{2pt}
 \newcommand{\blockvskip}{10pt}
 
+% Vertical centering
+% Equal stretchable glue above and below each page's material, so a slide sits
+% in the middle of the page with the leftover space split evenly top and
+% bottom instead of collecting underneath. \@texttop and \@textbottom are
+% inserted inside the output routine's column box, where leading glue is not
+% discarded. Do not add \raggedbottom or \flushbottom after this: both
+% redefine these hooks and would undo the centering.
+%
+% The glue is second order (fill, not fil) on purpose. \newpage leaves a first
+% order \vfil at the end of the page, which would otherwise claim a third of
+% the free space and leave the material sitting high, with the gap below
+% exactly twice the gap above. Second order glue absorbs everything and
+% ignores that \vfil.
+\makeatletter
+% Remove every glue and penalty left dangling at the foot of the page: the
+% \vskip\blockvskip that closes a gregosheet environment, the \vskip\lyricvskip
+% after a lyric line, the \nopagebreak penalties, and the \vfil from \newpage.
+% Without this the box is centred but the visible material is not, sitting half
+% that glue too high. The loop stops at the first real line, since \unskip and
+% \unpenalty only ever remove glue and penalty nodes, so it cannot eat the
+% spacing between systems.
+\def\vetites@striptrailing{%
+  \ifnum\lastnodetype=11
+    \unskip \let\vetites@next\vetites@striptrailing
+  \else
+    \let\vetites@next\relax
+  \fi
+  \vetites@next}
+\def\@texttop{\vskip\z@\@plus 1fill\relax}
+\def\@textbottom{\vetites@striptrailing\vskip\z@\@plus 1fill\relax}
+\makeatother
+% \topskip would otherwise add a fixed slab above the first line that the
+% centering cannot see, pushing the material slightly low.
+\setlength{\topskip}{0pt}
+
 % Title style
 \makeatletter
 \renewcommand{\maketitle}{
