@@ -21,8 +21,8 @@ ordo-cantus-officii/         — all chant definitions (\defsheet, \deftone)
 
 gregosheet/                  — git submodule, antiphon typesetting package
                                (github.com/fay-ambrus/gregosheet)
-gregosheet-psalm.sty         — psalm package LaTeX interface
-gregosheet-psalm/            — its Lua modules (plain directory, not a submodule)
+gregosheet-psalm/            — psalm package: its .sty interface and Lua
+                               modules (plain directory, not a submodule)
 
 fonts/                       — GuidoHU (tracked) and Cambria (gitignored);
                                see fonts/README.md

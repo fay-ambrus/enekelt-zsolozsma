@@ -31,13 +31,17 @@ Lua in one call. Inside the environment `_`, `^` and `$` are catcode 12, as in
 ## File structure
 
 ```
-gregosheet-psalm.sty                   — LaTeX interface, option parsing (l3keys)
 gregosheet-psalm/
+  gregosheet-psalm.sty                 — LaTeX interface, option parsing (l3keys)
   gregosheet-psalm.syllabify.lua       — Hungarian syllabification
   gregosheet-psalm.marking.lua         — mark_flexa, mark_mediatio, mark_terminatio
   gregosheet-psalm.render.lua          — emit TeX output
   gregosheet-psalm.main.lua            — orchestrator called by the environment
 ```
+
+The package is self-contained in this directory, mirroring how `gregosheet`
+keeps its own `.sty`. `\usepackage{gregosheet-psalm}` therefore requires this
+directory on `TEXINPUTS`, which the build already provides.
 
 Modules are required with an explicit directory prefix
 (`require("gregosheet-psalm/gregosheet-psalm.marking")`), so `LUAINPUTS` must
