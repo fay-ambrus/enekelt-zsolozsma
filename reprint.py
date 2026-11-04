@@ -35,7 +35,10 @@ import sys
 import tempfile
 from dataclasses import dataclass
 
-import fitz
+try:  # PyMuPDF renamed its module; the "fitz" alias is deprecated
+    import pymupdf as fitz
+except ImportError:  # PyMuPDF older than 1.24
+    import fitz
 from pypdf import PageObject, PdfReader, PdfWriter
 
 from scramble import blank_size, folding_order

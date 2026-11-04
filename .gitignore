@@ -21,6 +21,8 @@ main.synctex.gz
 *.bbox
 *.ly
 out/tmp-ly/*
+tmp-ly/
+**/tmp-ly/
 
 ## Intermediate documents:
 *.dvi
@@ -104,6 +106,11 @@ latex.out/
 
 preview.tex
 
-STEERING.md
 .DS_Store
 gregosheet.sty.lnk
+## Licensed fonts: supplied locally, never committed (see fonts/README.md)
+fonts/Cambria*
+fonts/CAMBRIA*
+
+## Python bytecode
+__pycache__/

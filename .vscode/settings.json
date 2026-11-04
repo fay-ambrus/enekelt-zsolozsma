@@ -1,4 +1,10 @@
 {
+  // Documents live in zsolozsmas-konyvek/, vetitesek/ and egyeb-kiadvanyok/,
+  // but every shared source is at the repository root: styles.tex,
+  // ordo-cantus-officii/, the two chant packages and fonts/. So the search
+  // paths use %WORKSPACE_FOLDER%, not %DIR%, which is now a subfolder.
+  // OSFONTDIR is required: fontspec resolves GuidoHU.ttf and Cambria through
+  // it, never through TEXINPUTS.
   "latex-workshop.latex.tools": [
     {
       "name": "lualatex-unix",
@@ -11,8 +17,9 @@
         "%DOC%"
       ],
       "env": {
-        "TEXINPUTS": "%DIR%:%DIR%/gregosheet:%DIR%/gregosheet-psalm:",
-        "LUAINPUTS": "%DIR%:%DIR%/gregosheet:%DIR%/gregosheet-psalm:"
+        "TEXINPUTS": "%WORKSPACE_FOLDER%:%WORKSPACE_FOLDER%/gregosheet:%WORKSPACE_FOLDER%/gregosheet-psalm:",
+        "LUAINPUTS": "%WORKSPACE_FOLDER%:%WORKSPACE_FOLDER%/gregosheet:%WORKSPACE_FOLDER%/gregosheet-psalm:",
+        "OSFONTDIR": "%WORKSPACE_FOLDER%/fonts"
       }
     },
     {
@@ -20,7 +27,7 @@
       "command": "cmd",
       "args": [
         "/c",
-        "set TEXINPUTS=%DIR%\\;%DIR%\\gregosheet\\;%DIR%\\gregosheet-psalm\\;&& set LUAINPUTS=%DIR%\\;%DIR%\\gregosheet\\;%DIR%\\gregosheet-psalm\\;&& cd /d %OUTDIR% && lualatex --shell-escape -interaction=nonstopmode -synctex=1 %DOC%"
+        "set TEXINPUTS=%WORKSPACE_FOLDER%\\;%WORKSPACE_FOLDER%\\gregosheet\\;%WORKSPACE_FOLDER%\\gregosheet-psalm\\;&& set LUAINPUTS=%WORKSPACE_FOLDER%\\;%WORKSPACE_FOLDER%\\gregosheet\\;%WORKSPACE_FOLDER%\\gregosheet-psalm\\;&& set OSFONTDIR=%WORKSPACE_FOLDER%\\fonts&& cd /d %OUTDIR% && lualatex --shell-escape -interaction=nonstopmode -synctex=1 %DOC%"
       ]
     }
   ],
@@ -36,5 +43,7 @@
   ],
   "latex-workshop.view.pdf.viewer": "tab",
   "latex-workshop.latex.autoBuild.run": "onSave",
-  "latex-workshop.latex.outDir": "%DIR%/out"
+  // One shared out/ at the root, so reprint.py keeps finding the PDFs and the
+  // committed output stays in place.
+  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/out"
 }

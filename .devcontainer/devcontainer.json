@@ -1,0 +1,35 @@
+{
+  "name": "énekelt zsolozsma (LuaLaTeX)",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "vscode",
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+
+  // Both the music font GuidoHU.ttf and the body font Cambria live in fonts/,
+  // which OSFONTDIR points at: fontspec looks fonts up there rather than
+  // through TEXINPUTS. Cambria is licensed and gitignored, so copy it once:
+  //   cp ~/Library/Fonts/Cambria* fonts/
+  // See fonts/README.md. Without it the books will not compile.
+  "containerEnv": {
+    "TEXINPUTS": "/workspace:/workspace/gregosheet:/workspace/gregosheet-psalm:",
+    "LUAINPUTS": "/workspace:/workspace/gregosheet:/workspace/gregosheet-psalm:",
+    "OSFONTDIR": "/workspace/fonts"
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "James-Yu.latex-workshop"
+      ],
+      "settings": {
+        "latex-workshop.latex.autoBuild.run": "onSave",
+        "latex-workshop.view.pdf.viewer": "tab",
+        "latex-workshop.latex.outDir": "%DIR%/out"
+      }
+    }
+  },
+
+  "postCreateCommand": "bash .devcontainer/postCreate.sh"
+}
