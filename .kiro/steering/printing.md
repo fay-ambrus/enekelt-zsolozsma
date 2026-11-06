@@ -15,6 +15,12 @@ half** — not folded. Cutting makes the two halves independent A5 leaves, so:
 Under a short edge flip the front-left half backs onto the reverse-right half,
 which is why a sheet reads `[left recto, right recto, right verso, left verso]`.
 
+`\padtotwo` in the antiphonale pads each part to a multiple of two pages, so
+every part begins on a recto and its leaves line up. Note that part boundaries
+therefore no longer fall on four-page boundaries: `reprint.py --fold` still
+imposes correctly, but its gatherings no longer coincide with where the parts
+start.
+
 ## reprint.py
 
 Computes which sheets need reprinting between two revisions and emits them

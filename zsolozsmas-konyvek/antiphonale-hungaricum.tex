@@ -19,10 +19,10 @@
 \input{ordo-cantus-officii/6-appendix.tex}
 
 \ExplSyntaxOn
-\NewDocumentCommand{\padtofour}{}
+\NewDocumentCommand{\padtotwo}{}
   {
     \clearpage
-    \bool_until_do:nn { \int_compare_p:n { \int_mod:nn { \value{page} - 1 } { 4 } == 0 } }
+    \bool_until_do:nn { \int_compare_p:n { \int_mod:nn { \value{page} - 1 } { 2 } == 0 } }
       {
         \null
         \thispagestyle{empty}
@@ -1031,7 +1031,7 @@
                     \addtext{H}
                     \addsheet[title={Esti dicséret}]{PeccatricemQuiSolvisti}
                 \end{gregosheet}
-\padtofour
+\padtotwo
 \section*{II. A négy hétre osztott zsoltáros rész}
     \setcounter{page}{1}
     \rubric{Amennyiben egy zsoltár több részre van felosztva, lehet a teljes zsoltárt megszakítás nélkül végezni, kizárólag az első antifónát használva. A II., III. és IV. hét Imádságra hívásához tartozó antifónákat az I. hétről kell venni.}
@@ -1705,7 +1705,7 @@
                 \addsheet{SalveRegina}
                 \addsheet{SalveReginaSimpl}
             \end{gregosheet}
-\padtofour
+\padtotwo
 \section*{III. Szentek saját része}
 \setcounter{page}{1}
 \markboth{Szentek saját része}{Július}
@@ -1773,7 +1773,7 @@
                 \addtext{3}
                 \addsheet{RelictisRetibus}
             \end{gregosheet}
-\padtofour
+\padtotwo
 \section*{IV. Szentek közös része}
 \setcounter{page}{1}
 \markboth{Szentek közös része}{Szűz Mária közös zsolozsmája}
@@ -1871,7 +1871,7 @@
             \addtext{B}
             \addsheet{SimileEst}
         \end{gregosheet}
-\padtofour
+\padtotwo
 \section*{V. Zsolozsma a megholtakért}
     \setcounter{page}{1}
     \markboth{Zsolozsma a megholtakért}{Zsolozsma a megholtakért}
@@ -1904,7 +1904,7 @@
         \addtext{M}
         \addsheet{Omne}
     \end{gregosheet}
-\padtofour
+\padtotwo
 \section*{VI. Függellék}
     \setcounter{page}{1}
     \markboth{Függellék}{Állandó részek}

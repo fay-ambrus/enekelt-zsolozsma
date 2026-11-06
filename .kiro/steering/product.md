@@ -23,9 +23,12 @@ single master document. They are grouped into three folders by kind.
 | `eneklapok/` — song sheets for an occasion | `bori-bence-eskuvo`, `bori-bence-eskuvo-nep`, `nagyhet-2026`, `temetes`, `temetesi-mise`, `urnapja` |
 
 `antiphonale-hungaricum` is the principal work: an A5 antiphonale, currently
-~236 pages, continuously amended and reprinted in parts. Its page numbering
-restarts in each of its six parts, and `\padtofour` pads every part to a
-multiple of four pages.
+~228 pages, continuously amended and reprinted in parts. Its page numbering
+restarts in each of its six parts, and `\padtotwo` pads every part to a
+multiple of two pages so the next part begins on a recto. That matches the
+unit of paper: the copy is cut in half rather than folded, so a leaf of two
+pages is what gets replaced. It was `\padtofour` while the copy was folded
+into four-page gatherings.
 
 ## Shared sources
 
